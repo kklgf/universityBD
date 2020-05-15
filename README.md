@@ -14,7 +14,7 @@
   - Link: https://github.com/kklgf/universityBD
 
 ## Current database schema
-[Database schema](universityBD.jpg)
+![Database schema](universityBD.jpg)
 
 ## Features
 - Database schema implementation and creation [Patryk]
