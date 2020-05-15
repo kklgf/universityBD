@@ -1,13 +1,13 @@
-#University Database
+# University Database
 
-##Projekt na laboratoria Bazy Danych.
+## Projekt na laboratoria Bazy Danych.
 
-###Grupa:
+##### Grupa:
   - Cyra Agata
   - ~~Nowakowski Karol~~ (urlop dziekański)
   - Siwek Patryk
 
-###Projekt:
+##### Projekt:
   - Temat: Baza danych dla uczelni.
   - Serwer: lokalny serwer SQL
   - Technologie: .Net i Entity Framework
