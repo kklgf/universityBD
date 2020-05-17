@@ -112,9 +112,18 @@ namespace universityBD
             Console.WriteLine("ID, Course, Profesor, Day, StartTime, Length, Capacity");
             foreach (var item in query)
             {
-                Console.WriteLine(item.SectionID + ", " + item.Course.Name + ", " + 
-                    item.Employee.Name + " " + item.Employee.Surname
-                    + ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity);
+                var getCourse = from courses in database.Courses
+                                    where courses.CourseID == item.CourseID
+                                    select courses;
+                foreach (var course in getCourse)
+                {
+                    var getEmployee = from employees in database.Employees
+                                      where employees.EmployeeID == item.ProfesorID
+                                      select employees;
+                    foreach (var employee in getEmployee)
+                    { Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
+                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity); }
+                }
             }
         }
         public static Section SearchToAdd()
@@ -148,6 +157,39 @@ namespace universityBD
                 }
             }
             return result;
+        }
+
+        public static void AttendanceList()
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("First find the Section you're interested in: ");
+            Search();
+            Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
+            int id = int.Parse(Console.ReadLine());
+            var foundSection = from sections in database.Sections
+                                where sections.SectionID == id
+                                select sections;
+            switch (id)
+            {
+                case 0:
+                    break;
+                default:
+                    foreach (var item in foundSection)
+                    {
+                        var foundEnrollments = from enrollments in database.Enrollments
+                                           where enrollments.SectionID == item.SectionID
+                                           select enrollments;
+                        foreach (var enrollment in foundEnrollments)
+                        {
+                            var foundStudents = from students in database.Students
+                                              where students.StudentID == enrollment.StudentID
+                                              select students;
+                            foreach (var student in foundStudents)
+                            { Console.WriteLine(student.Name + " " + student.Surname); }
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

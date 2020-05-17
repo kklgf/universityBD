@@ -13,7 +13,8 @@ namespace universityBD
             UniversityContext database = new UniversityContext();
             // Student.StudentsGrades();
             // Employee.EmployeesCourses();
-            Student.StudentsECTS();
+            // Student.StudentsECTS();
+            Section.AttendanceList();
             bool run = true;
             while (run)
             {
