@@ -15,7 +15,7 @@ namespace universityBD
             // Employee.EmployeesCourses();
             // Student.StudentsECTS();
             // Section.AttendanceList();
-            Section.FreePlaces();
+            // Section.FreePlaces();
             bool run = true;
             while (run)
             {
@@ -32,8 +32,12 @@ namespace universityBD
                         Search(database);
                         break;
                     case 2:
-                        database.Add(Add());
-                        database.SaveChanges();
+                        object toBeAdded = Add();
+                        if (toBeAdded != null)
+                        {
+                            database.Add(Add());
+                            database.SaveChanges();
+                        }
                         break;
                     case 0:
                         run = false;

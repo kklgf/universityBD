@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace universityBD
@@ -20,21 +22,50 @@ namespace universityBD
 
         public static Enrollment NewEnrollment()
         {
+            UniversityContext database = new UniversityContext();
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
             Console.WriteLine("SectionID (chose from existing):");
-            int SectionID = Section.SearchToAdd().SectionID;
-            Console.WriteLine("StudentID (chose from existing):");
-            int StudentID = Student.SearchToAdd().StudentID;
-            Enrollment enrollment = new Enrollment
+            bool SectionAvailable = false;
+            bool run = true;
+            int SectionID = 0;
+            while(run)
             {
-                CourseID = CourseID,
-                SectionID = SectionID,
-                StudentID = StudentID
-            };
-            return enrollment;
+                SectionID = Section.SearchToAdd().SectionID;
+                var query = from sections in database.Sections
+                            where sections.SectionID == SectionID
+                            select sections;
+                foreach(var item in query)
+                { SectionAvailable = (item.Capacity > Section.CountStudentsOnSection(item)); }
+                if (SectionAvailable)
+                {
+                    Console.WriteLine("Congratulations! This section is available!");
+                    run = false;
+                }
+                else
+                {
+                    Console.WriteLine("This section does not have enough free places for you. Try another one!");
+                    Console.WriteLine("Press 1 to continue, 0 to quit");
+                    int tryAgain = int.Parse(Console.ReadLine());
+                    if (tryAgain == 0) { run = false; }
+                }
+            }
+            if(SectionAvailable)
+            {
+                Console.WriteLine("StudentID (chose from existing):");
+                int StudentID = Student.SearchToAdd().StudentID;
+                Enrollment enrollment = new Enrollment
+                {
+                    CourseID = CourseID,
+                    SectionID = SectionID,
+                    StudentID = StudentID
+                };
+                return enrollment;
+            }
+            return null;
         }
+
         public static void Search()
         {
             System.Linq.IQueryable<universityBD.Enrollment> query = null;
