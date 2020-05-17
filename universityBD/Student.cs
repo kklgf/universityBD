@@ -219,6 +219,8 @@ namespace universityBD
                 case 0:
                     break;
                 default:
+                    Console.WriteLine("choose the semeester you are interested in: ");
+                    int semester = int.Parse(Console.ReadLine());
                     var query = from courses in database.Courses
                                 join grades in database.Grades
                                 on courses.CourseID equals grades.CourseID
@@ -233,6 +235,7 @@ namespace universityBD
                             var passedCourse = from courses in database.Courses
                                                join grades in database.Grades
                                                on courses.CourseID equals grades.CourseID
+                                               where grades.Semester == semester
                                                select courses;
                             foreach (var course in passedCourse) { result += course.ECTS; }
                         }
