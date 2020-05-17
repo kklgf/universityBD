@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\universityBD",
-    "\\universityBD\\bin",
-    "\\universityBD\\bin\\Debug",
-    "\\universityBD\\bin\\Debug\\netcoreapp3.1"
+    "\\universityBD\\bin\\Debug\\netcoreapp3.1\\runtimes"
   ],
-  "SelectedNode": "\\universityBD\\Course.cs",
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }

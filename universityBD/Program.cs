@@ -14,7 +14,7 @@ namespace universityBD
             // Student.StudentsGrades();
             // Employee.EmployeesCourses();
             // Student.StudentsECTS();
-            Section.AttendanceList();
+            // Section.AttendanceList();
             // Section.FreePlaces();
             bool run = true;
             while (run)
@@ -51,7 +51,7 @@ namespace universityBD
 
         static void Search(UniversityContext database)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
             Console.WriteLine("###############################");
             Console.WriteLine("\nIn which table you want to search?");
             Console.WriteLine("1. Courses");
@@ -67,8 +67,22 @@ namespace universityBD
             switch (action)
             {
                 case 1:
+                    Course.Search();
                     break;
                 case 2:
+                    Department.Search();
+                    break;
+                case 3:
+                    Employee.Search();
+                    break;
+                case 4:
+                    Enrollment.Search();
+                    break;
+                case 5:
+                    Grade.Search();
+                    break;
+                case 6:
+                    Section.Search();
                     break;
                 case 7:
                     Student.Search();
