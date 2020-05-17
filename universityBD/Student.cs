@@ -165,5 +165,44 @@ namespace universityBD
             }
             return result;
         }
+
+        public static void StudentsGrades()
+        {
+            UniversityContext database = new UniversityContext();
+            Student result = null;
+            Console.WriteLine("First find the student whose grades you'd like to see");
+            Search();
+            Console.WriteLine("Choose selected Student by inserting it's ID. Write '0' to abort.");
+            int id = int.Parse(Console.ReadLine());
+            var foundStudents = from students in database.Students
+                               where students.StudentID == id
+                               select students;
+            switch(id)
+            {
+                case 0:
+                    result = null;
+                    break;
+                default:
+                    var query = from courses in database.Courses
+                                join grades in database.Grades
+                                on courses.CourseID equals grades.CourseID
+                                join students in database.Students
+                                on grades.StudentID equals students.StudentID
+                                where students.StudentID == id
+                                select grades;
+                    foreach(var item in query)
+                    {
+                        var foundCourse = from courses in database.Courses
+                                          where courses.CourseID == item.CourseID
+                                          select courses;
+                        foreach (var student in foundStudents)
+                        {
+                            foreach (var course in foundCourse)
+                            { Console.WriteLine(student.Name + " " + student.Surname + ", Course Name: " + course.Name + ", SCORE: " + item.Score); }
+                        }
+                    }
+                    break;
+            }
+        }
     }
 }

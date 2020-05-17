@@ -49,6 +49,7 @@ namespace universityBD
                 Console.WriteLine("4. Department");
                 Console.WriteLine("O. Cancel");
                 int action = int.Parse(Console.ReadLine());
+                query = database.Courses;
                 switch (action)
                 {
                     case 1:

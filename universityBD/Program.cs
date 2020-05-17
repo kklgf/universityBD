@@ -11,6 +11,8 @@ namespace universityBD
             Console.WriteLine("UniversityDB version " + version);
             Console.WriteLine("###############################");
             UniversityContext database = new UniversityContext();
+            // Student.StudentsGrades();
+            Employee.EmployeesCourses();
             bool run = true;
             while (run)
             {
@@ -60,6 +62,9 @@ namespace universityBD
                 case 1:
                     break;
                 case 2:
+                    break;
+                case 7:
+                    Student.Search();
                     break;
                 case 0:
                     break;

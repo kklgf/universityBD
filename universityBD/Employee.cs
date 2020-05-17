@@ -143,7 +143,7 @@ namespace universityBD
             {
                 Console.WriteLine(item.EmployeeID + ", " + item.Name + ", " + item.Surname
                      + ", " + item.Address + ", " + item.City + ", " + item.Country + ", " + item.Phone
-                      + ", " + item.Email + ", " + item.Salary + ", " + item.Department.Name);
+                      + ", " + item.Email + ", " + item.Salary + ", " + item.DepartmentID);
             }
         }
         public static Employee SearchToAdd()
@@ -177,6 +177,39 @@ namespace universityBD
                 }
             }
             return result;
+        }
+
+        public static void EmployeesCourses()
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("First find the employee whose courses you'd like to see");
+            Search();
+            Console.WriteLine("Now choose the Employee by inserting it's ID. Write '0' to abort.");
+            int id = int.Parse(Console.ReadLine());
+            var foundEmployee = from employees in database.Employees
+                                where employees.EmployeeID == id
+                                select employees;
+            switch(id)
+            {
+                case 0:
+                    break;
+                default:
+                    foreach (var item in foundEmployee)
+                    {
+                        var foundSection = from sections in database.Sections
+                                           where sections.ProfesorID == item.EmployeeID
+                                          select sections;
+                        foreach (var section in foundSection)
+                        {
+                            var foundCourse = from courses in database.Courses
+                                              where courses.CourseID == section.CourseID
+                                              select courses;
+                            foreach (var course in foundCourse)
+                            { Console.WriteLine(item.Name + " " + item.Surname + " " + course.Name); }
+                        }
+                    }
+                    break;
+            }
         }
     }
 }
