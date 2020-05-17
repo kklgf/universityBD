@@ -12,7 +12,8 @@ namespace universityBD
             Console.WriteLine("###############################");
             UniversityContext database = new UniversityContext();
             // Student.StudentsGrades();
-            Employee.EmployeesCourses();
+            // Employee.EmployeesCourses();
+            Student.StudentsECTS();
             bool run = true;
             while (run)
             {
