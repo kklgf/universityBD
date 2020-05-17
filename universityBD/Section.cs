@@ -159,6 +159,24 @@ namespace universityBD
             return result;
         }
 
+
+        public static int CountStudentsOnSection(Section section)
+        {
+            UniversityContext database = new UniversityContext();
+            int result = 0;
+            
+            var foundEnrollments = from enrollments in database.Enrollments
+                                   where enrollments.SectionID == section.SectionID
+                                   select enrollments;
+            foreach (var enrollment in foundEnrollments)
+            {
+                var foundStudents = from students in database.Students
+                                    where students.StudentID == enrollment.StudentID
+                                    select students;
+                foreach (var student in foundStudents) { result++; }
+            }
+            return result;
+        }
         public static void AttendanceList()
         {
             UniversityContext database = new UniversityContext();
@@ -187,6 +205,29 @@ namespace universityBD
                             foreach (var student in foundStudents)
                             { Console.WriteLine(student.Name + " " + student.Surname); }
                         }
+                    }
+                    break;
+            }
+        }
+
+        public static void FreePlaces()
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("First find the Section you're interested in: ");
+            Search();
+            Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
+            int id = int.Parse(Console.ReadLine());
+            var foundSection = from sections in database.Sections
+                               where sections.SectionID == id
+                               select sections;
+            switch(id)
+            {
+                case 0: break;
+                default:
+                    foreach (var section in foundSection)
+                    {
+                        int freePlaces = section.Capacity - CountStudentsOnSection(section);
+                        Console.WriteLine("There are " + freePlaces + " free places on this section.");
                     }
                     break;
             }
