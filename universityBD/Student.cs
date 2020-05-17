@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace universityBD
@@ -164,6 +166,22 @@ namespace universityBD
                 }
             }
             return result;
+        }
+
+        public static bool HasClassesAtTheTime(int studentID, Section section)
+        {
+            UniversityContext database = new UniversityContext();
+            var foundSections = from sections in database.Sections
+                                join enrollments in database.Enrollments
+                                on sections.SectionID equals enrollments.SectionID
+                                where enrollments.StudentID == studentID
+                                select sections;
+            foreach(var foundSection in foundSections)
+            {
+                if(foundSection.Day == section.Day && foundSection.StartTime == section.StartTime)
+                { return true; }
+            }
+            return false;
         }
 
         public static void StudentsGrades()

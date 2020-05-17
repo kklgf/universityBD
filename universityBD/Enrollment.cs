@@ -30,10 +30,11 @@ namespace universityBD
             bool SectionAvailable = false;
             bool run = true;
             int SectionID = 0;
+            var query = from sections in database.Sections select sections;
             while(run)
             {
                 SectionID = Section.SearchToAdd().SectionID;
-                var query = from sections in database.Sections
+                query = from sections in database.Sections
                             where sections.SectionID == SectionID
                             select sections;
                 foreach(var item in query)
@@ -55,13 +56,21 @@ namespace universityBD
             {
                 Console.WriteLine("StudentID (chose from existing):");
                 int StudentID = Student.SearchToAdd().StudentID;
-                Enrollment enrollment = new Enrollment
-                {
-                    CourseID = CourseID,
-                    SectionID = SectionID,
-                    StudentID = StudentID
-                };
-                return enrollment;
+                bool hasOtherClasses = false;
+                foreach(var item in query)
+                { hasOtherClasses = Student.HasClassesAtTheTime(StudentID, item);}
+                if (hasOtherClasses) { Console.WriteLine("Another section at the time!"); }
+                else
+                { 
+                    Enrollment enrollment = new Enrollment
+                    {
+                        CourseID = CourseID,
+                        SectionID = SectionID,
+                        StudentID = StudentID
+                    };
+                    Console.WriteLine("This enrollment has been successful!");
+                    return enrollment;
+                }
             }
             return null;
         }

@@ -14,7 +14,7 @@ namespace universityBD
             // Student.StudentsGrades();
             // Employee.EmployeesCourses();
             // Student.StudentsECTS();
-            // Section.AttendanceList();
+            Section.AttendanceList();
             // Section.FreePlaces();
             bool run = true;
             while (run)
