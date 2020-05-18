@@ -83,11 +83,8 @@ namespace universityBD
             Console.WriteLine("ID, Name, ECTS, Department");
             foreach (var item in query)
             {
-                var foundDepartments = from departments in database.Departments
-                                       where departments.DepartmentID == item.DepartmentID
-                                       select departments;
-                foreach(var department in foundDepartments)
-                { Console.WriteLine(item.CourseID + ", " + item.Name + ", " + item.ECTS + ", " + department.Name); }
+                var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
+                Console.WriteLine(item.CourseID + ", " + item.Name + ", " + item.ECTS + ", " + department.Name);
             }
         }
         public static Course SearchToAdd()

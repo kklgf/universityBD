@@ -191,14 +191,12 @@ namespace universityBD
             Search();
             Console.WriteLine("Choose selected Student by inserting it's ID. Write '0' to abort.");
             int id = int.Parse(Console.ReadLine());
-            var foundStudents = from students in database.Students
-                               where students.StudentID == id
-                               select students;
             switch(id)
             {
                 case 0:
                     break;
                 default:
+                    var student = (Student)database.Students.Where(e => e.StudentID == id).FirstOrDefault();
                     var query = from courses in database.Courses
                                 join grades in database.Grades
                                 on courses.CourseID equals grades.CourseID
@@ -211,11 +209,8 @@ namespace universityBD
                         var foundCourse = from courses in database.Courses
                                           where courses.CourseID == item.CourseID
                                           select courses;
-                        foreach (var student in foundStudents)
-                        {
-                            foreach (var course in foundCourse)
-                            { Console.WriteLine(student.Name + " " + student.Surname + ", Course Name: " + course.Name + ", SCORE: " + item.Score); }
-                        }
+                        foreach (var course in foundCourse)
+                        { Console.WriteLine(student.Name + " " + student.Surname + ", Course Name: " + course.Name + ", SCORE: " + item.Score); }
                     }
                     break;
             }
@@ -229,9 +224,6 @@ namespace universityBD
             Search();
             Console.WriteLine("Choose selected Student by inserting it's ID. Write '0' to abort.");
             int id = int.Parse(Console.ReadLine());
-            var foundStudents = from students in database.Students
-                                where students.StudentID == id
-                                select students;
             switch (id)
             {
                 case 0:
@@ -250,12 +242,8 @@ namespace universityBD
                     {
                         if (item.Score > 2)
                         {
-                            var passedCourse = from courses in database.Courses
-                                               join grades in database.Grades
-                                               on courses.CourseID equals grades.CourseID
-                                               where grades.Semester == semester
-                                               select courses;
-                            foreach (var course in passedCourse) { result += course.ECTS; }
+                            var passedCourse = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                            result += passedCourse.ECTS;
                         }
                     }
                     Console.WriteLine("Collected ECTS points: " + result);

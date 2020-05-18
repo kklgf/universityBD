@@ -141,9 +141,10 @@ namespace universityBD
             Console.WriteLine("ID, Name, Surname, Address, City, Country, Phone, Email, Salary, Department");
             foreach (var item in query)
             {
+                var department = (Department) database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
                 Console.WriteLine(item.EmployeeID + ", " + item.Name + ", " + item.Surname
                      + ", " + item.Address + ", " + item.City + ", " + item.Country + ", " + item.Phone
-                      + ", " + item.Email + ", " + item.Salary + ", " + item.DepartmentID);
+                      + ", " + item.Email + ", " + item.Salary + ", " + department.Name);
             }
         }
         public static Employee SearchToAdd()

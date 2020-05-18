@@ -95,21 +95,10 @@ namespace universityBD
             Console.WriteLine("Course, Student, Year, Semester, Score");
             foreach (var item in query)
             {
-                var findStudent = from students in database.Students
-                                  where students.StudentID == item.StudentID
-                                  select students;
-                foreach(var student in findStudent)
-                {
-                    var findCourse = from courses in database.Courses
-                                     where courses.CourseID == item.CourseID
-                                     select courses;
-                    foreach(var course in findCourse)
-                    {
-                        Console.WriteLine(course.Name + ", "
-                              + student.Name + " " + student.Surname + ", "
-                              + item.Year + ", " + item.Semester + ", " + item.Score);
-                    }
-                }   
+                var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                Console.WriteLine(course.Name + ", " + student.Name + " " + student.Surname + ", "
+                              + item.Year + ", " + item.Semester + ", " + item.Score); 
             }
         }
         public static Grade SearchToAdd()

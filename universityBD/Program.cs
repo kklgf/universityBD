@@ -35,7 +35,7 @@ namespace universityBD
                         object toBeAdded = Add();
                         if (toBeAdded != null)
                         {
-                            database.Add(Add());
+                            database.Add(toBeAdded);
                             database.SaveChanges();
                         }
                         break;

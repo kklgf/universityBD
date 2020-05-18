@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace universityBD
 
         public static Section NewSection()
         {
+            UniversityContext database = new UniversityContext();
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
@@ -112,18 +114,10 @@ namespace universityBD
             Console.WriteLine("ID, Course, Profesor, Day, StartTime, Length, Capacity");
             foreach (var item in query)
             {
-                var getCourse = from courses in database.Courses
-                                    where courses.CourseID == item.CourseID
-                                    select courses;
-                foreach (var course in getCourse)
-                {
-                    var getEmployee = from employees in database.Employees
-                                      where employees.EmployeeID == item.ProfesorID
-                                      select employees;
-                    foreach (var employee in getEmployee)
-                    { Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
-                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity); }
-                }
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
+                Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
+                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity);
             }
         }
         public static Section SearchToAdd()
@@ -168,13 +162,7 @@ namespace universityBD
             var foundEnrollments = from enrollments in database.Enrollments
                                    where enrollments.SectionID == section.SectionID
                                    select enrollments;
-            foreach (var enrollment in foundEnrollments)
-            {
-                var foundStudents = from students in database.Students
-                                    where students.StudentID == enrollment.StudentID
-                                    select students;
-                foreach (var student in foundStudents) { result++; }
-            }
+            foreach (var enrollment in foundEnrollments) { result++; }
             return result;
         }
         public static void AttendanceList()
@@ -184,27 +172,19 @@ namespace universityBD
             Search();
             Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
             int id = int.Parse(Console.ReadLine());
-            var foundSection = from sections in database.Sections
-                                where sections.SectionID == id
-                                select sections;
             switch (id)
             {
                 case 0:
                     break;
                 default:
-                    foreach (var item in foundSection)
-                    {
-                        var foundEnrollments = from enrollments in database.Enrollments
-                                           where enrollments.SectionID == item.SectionID
+                    var section = (Section)database.Sections.Where(e => e.SectionID == id).FirstOrDefault();
+                    var foundEnrollments = from enrollments in database.Enrollments
+                                           where enrollments.SectionID == section.SectionID
                                            select enrollments;
-                        foreach (var enrollment in foundEnrollments)
-                        {
-                            var foundStudents = from students in database.Students
-                                              where students.StudentID == enrollment.StudentID
-                                              select students;
-                            foreach (var student in foundStudents)
-                            { Console.WriteLine(student.Name + " " + student.Surname); }
-                        }
+                    foreach (var enrollment in foundEnrollments)
+                    {
+                        var student = (Student)database.Students.Where(e => e.StudentID == enrollment.StudentID).FirstOrDefault();
+                        Console.WriteLine(student.Name + " " + student.Surname);
                     }
                     break;
             }
@@ -217,18 +197,14 @@ namespace universityBD
             Search();
             Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
             int id = int.Parse(Console.ReadLine());
-            var foundSection = from sections in database.Sections
-                               where sections.SectionID == id
-                               select sections;
             switch(id)
             {
-                case 0: break;
+                case 0:
+                    break;
                 default:
-                    foreach (var section in foundSection)
-                    {
-                        int freePlaces = section.Capacity - CountStudentsOnSection(section);
-                        Console.WriteLine("There are " + freePlaces + " free places on this section.");
-                    }
+                    var section = (Section)database.Sections.Where(e => e.SectionID == id).FirstOrDefault();
+                    int freePlaces = section.Capacity - CountStudentsOnSection(section);
+                    Console.WriteLine("There are " + freePlaces + " free places on this section.");
                     break;
             }
         }

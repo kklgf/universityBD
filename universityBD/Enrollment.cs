@@ -116,9 +116,12 @@ namespace universityBD
             Console.WriteLine("Course, Profesor, Student");
             foreach (var item in query)
             {
-                Console.WriteLine(item.Course.Name + ", " + item.Section.Employee.Name
-                    + " " + item.Section.Employee.Surname + ", "
-                     + item.Student.Name + " " + item.Student.Surname);
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                var student = (Student) database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
+                var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
+                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.ProfesorID).FirstOrDefault();
+                Console.WriteLine(course.Name + ", " + employee.Name
+                    + " " + employee.Surname + ", " + student.Name + " " + student.Surname);
             }
         }
         public static Enrollment SearchToAdd()
