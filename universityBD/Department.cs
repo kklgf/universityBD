@@ -27,10 +27,11 @@ namespace universityBD
             Console.WriteLine("Showing all the DEPARTMENTS in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Departments;
-            Console.WriteLine("ID | Name");
+            Console.WriteLine("ID".PadRight(4) +"| " + "Name".PadRight(15));
+            Console.WriteLine("-------------------");
             foreach (var item in query)
             {
-                Console.WriteLine(item.DepartmentID + ", " + item.Name);
+                Console.WriteLine(item.DepartmentID.ToString().PadRight(4) + "| " + item.Name.PadRight(15));
             }
         }
 
