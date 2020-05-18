@@ -26,13 +26,17 @@ namespace universityBD
             Console.WriteLine("Showing all the EMPLOYEES in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Employees;
-            Console.WriteLine("ID | Name Surname | Address | City | Country | Phone | Email | Salary | Department Name");
+            Console.WriteLine("ID".PadRight(4) + "| " +"Name".PadRight(15) +" "+"Surname".PadRight(15) +
+                "| " + "Address".PadRight(30) + "| " + "City".PadRight(10) +"| " + "Country".PadRight(10) +
+                "| " + "Phone".PadRight(10) + "| " + "Email".PadRight(20) + "| " + "Salary".PadRight(10)+"|" + "Department Name".PadRight(15));
+            Console.WriteLine("----------------------------------------------------------------------------------------------" +
+                "------------------------------------------------------------------");
             foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
-                Console.WriteLine(item.EmployeeID + ", " + item.Name + " " + item.Surname + ", " + item.Address + ", " 
-                    + item.City + ", " + item.Country + ", " + item.Phone + ", " + item.Email + ", "
-                    + item.Salary + ", " + department.Name);
+                Console.WriteLine(item.EmployeeID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + " " + item.Surname.PadRight(15) + "| "
+                    + item.Address.PadRight(30) + "| " + item.City.PadRight(10) + "| " + item.Country.PadRight(10) + "| " + item.Phone.ToString().PadRight(10)
+                    + "| " + item.Email.PadRight(20) + "| " + item.Salary.ToString().PadRight(10) + "| " + department.Name.PadRight(15));
             }
         }
 
