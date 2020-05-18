@@ -23,6 +23,7 @@ namespace universityBD
                 Console.WriteLine("\nWhat you want to do?");
                 Console.WriteLine("1. Search in database");
                 Console.WriteLine("2. Add to database");
+                Console.WriteLine("3. See the whole table");
                 Console.WriteLine("O. Close");
                 Console.WriteLine("###############################");
                 int action = int.Parse(Console.ReadLine());
@@ -38,6 +39,9 @@ namespace universityBD
                             database.Add(toBeAdded);
                             database.SaveChanges();
                         }
+                        break;
+                    case 3:
+                        SeeTable(database);
                         break;
                     case 0:
                         run = false;
@@ -94,6 +98,53 @@ namespace universityBD
                     break;
             }
         }
+
+        static void SeeTable(UniversityContext database)
+        {
+            // throw new NotImplementedException();
+            Console.WriteLine("###############################");
+            Console.WriteLine("\nWhich table are you interested in?");
+            Console.WriteLine("1. Courses");
+            Console.WriteLine("2. Departments");
+            Console.WriteLine("3. Employees");
+            Console.WriteLine("4. Enrollments");
+            Console.WriteLine("5. Grades");
+            Console.WriteLine("6. Sections");
+            Console.WriteLine("7. Students");
+            Console.WriteLine("O. Cancel");
+            Console.WriteLine("###############################");
+            int action = int.Parse(Console.ReadLine());
+            switch (action)
+            {
+                case 1:
+                    Course.SeeAll();
+                    break;
+                case 2:
+                    Department.SeeAll();
+                    break;
+                case 3:
+                    Employee.SeeAll();
+                    break;
+                case 4:
+                    Enrollment.SeeAll();
+                    break;
+                case 5:
+                    Grade.SeeAll();
+                    break;
+                case 6:
+                    Section.SeeAll();
+                    break;
+                case 7:
+                    Student.SeeAll();
+                    break;
+                case 0:
+                    break;
+                default:
+                    WrongAction();
+                    break;
+            }
+        }
+
         static object Add()
         {
             Console.WriteLine("###############################");

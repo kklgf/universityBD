@@ -22,7 +22,7 @@ namespace universityBD
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Department (chose from existing):");
             int DepartmentID = Department.SearchToAdd().DepartmentID;
-            Console.WriteLine("Name:");
+            Console.WriteLine("Enter the new course's NAME:");
             String Name = Console.ReadLine();
             Console.WriteLine("ECTS:");
             int ECTS = int.Parse(Console.ReadLine());
@@ -33,6 +33,21 @@ namespace universityBD
                 ECTS = ECTS
             };
             return course;
+        }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the COURSES in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Courses;
+            Console.WriteLine("ID".PadRight(4) + "| " +"Name".PadRight(15) + "| " +"ECTS".PadRight(5) +"| "+ "Department Name".PadRight(15));
+            Console.WriteLine("----------------------------------------------");
+            foreach(var item in query)
+            {
+                var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
+                Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + "| " + item.ECTS.ToString().PadRight(5) +
+                    "| " + department.Name.PadRight(15));
+            }
         }
         public static void Search()
         {

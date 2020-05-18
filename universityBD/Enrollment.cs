@@ -23,7 +23,7 @@ namespace universityBD
         public static Enrollment NewEnrollment()
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("\nYou need to specify those values.");
+            Console.WriteLine("\nAdding a new ENROLLMENT\nYou need to specify those values.");
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
             Console.WriteLine("SectionID (chose from existing):");
@@ -73,6 +73,23 @@ namespace universityBD
                 }
             }
             return null;
+        }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the ENROLLMENTS in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Enrollments;
+            Console.WriteLine("Course Name | Profesor | Student");
+            foreach (var item in query)
+            {
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
+                var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
+                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.ProfesorID).FirstOrDefault();
+                Console.WriteLine(course.Name + ", " + employee.Name
+                    + " " + employee.Surname + ", " + student.Name + " " + student.Surname);
+            }
         }
 
         public static void Search()

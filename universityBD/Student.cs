@@ -135,6 +135,21 @@ namespace universityBD
                       + ", " + item.Email + ", " + item.GraduationYear);
             }
         }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the STUDENTS in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Students;
+            Console.WriteLine("ID | Name | Surname | Address | City | Country | Phone | Email | Graduation Year");
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.StudentID + ", " + item.Name + ", " + item.Surname
+                     + ", " + item.Address + ", " + item.City + ", " + item.Country + ", " + item.Phone
+                      + ", " + item.Email + ", " + item.GraduationYear);
+            }
+        }
+
         public static Student SearchToAdd()
         {
             UniversityContext database = new UniversityContext();

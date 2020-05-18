@@ -48,6 +48,23 @@ namespace universityBD
             };
             return section;
         }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the SECTIONS in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Sections;
+            Console.WriteLine("ID | Course Name | Profesor | Day | Start Time | Length | Capacity | Free Places");
+            foreach (var item in query)
+            {
+                int freePlaces = item.Capacity - CountStudentsOnSection(item);
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
+                Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
+                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity + ", " + freePlaces);
+            }
+        }
+
         public static void Search()
         {
             System.Linq.IQueryable<universityBD.Section> query = null;

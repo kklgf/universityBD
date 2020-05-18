@@ -21,9 +21,24 @@ namespace universityBD
         public int DepartmentID { get; set; }
         public Department Department { get; set; }
 
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the EMPLOYEES in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Employees;
+            Console.WriteLine("ID | Name Surname | Address | City | Country | Phone | Email | Salary | Department Name");
+            foreach (var item in query)
+            {
+                var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
+                Console.WriteLine(item.EmployeeID + ", " + item.Name + " " + item.Surname + ", " + item.Address + ", " 
+                    + item.City + ", " + item.Country + ", " + item.Phone + ", " + item.Email + ", "
+                    + item.Salary + ", " + department.Name);
+            }
+        }
+
         public static Employee NewEmployee()
         {
-            Console.WriteLine("\nYou need to specify those values.");
+            Console.WriteLine("\nAdding a new EMPLOYEE\nYou need to specify those values.");
             Console.WriteLine("Name:");
             String Name = Console.ReadLine();
             Console.WriteLine("Surname:");
@@ -65,7 +80,7 @@ namespace universityBD
             while (run)
             {
                 run = false;
-                Console.WriteLine("\nBy which value you want to search?");
+                Console.WriteLine("\nBy which value you want to SEARCH?");
                 Console.WriteLine("1. ID");
                 Console.WriteLine("2. Name");
                 Console.WriteLine("3. Surname");
@@ -202,11 +217,8 @@ namespace universityBD
                                           select sections;
                         foreach (var section in foundSection)
                         {
-                            var foundCourse = from courses in database.Courses
-                                              where courses.CourseID == section.CourseID
-                                              select courses;
-                            foreach (var course in foundCourse)
-                            { Console.WriteLine(item.Name + " " + item.Surname + " " + course.Name); }
+                            var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
+                            Console.WriteLine(item.Name + " " + item.Surname + " " + course.Name);
                         }
                     }
                     break;

@@ -12,8 +12,8 @@ namespace universityBD
 
         public static Department NewDepartment()
         {
-            Console.WriteLine("\nYou need to specify those values.");
-            Console.WriteLine("Name:");
+            Console.WriteLine("\nYou need to specify this value.");
+            Console.WriteLine("Enter new department's NAME:");
             String Name = Console.ReadLine();
             Department department = new Department
             {
@@ -21,6 +21,19 @@ namespace universityBD
             };
             return department;
         }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the DEPARTMENTS in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Departments;
+            Console.WriteLine("ID | Name");
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.DepartmentID + ", " + item.Name);
+            }
+        }
+
         public static void Search()
         {
             System.Linq.IQueryable<universityBD.Department> query = null;

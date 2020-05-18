@@ -42,6 +42,22 @@ namespace universityBD
             };
             return grade;
         }
+
+        public static void SeeAll()
+        {
+            Console.WriteLine("Showing all the GRADES in the database:");
+            UniversityContext database = new UniversityContext();
+            var query = database.Grades;
+            Console.WriteLine("Course | Student | Year | Semester | Score");
+            foreach (var item in query)
+            {
+                var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
+                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
+                Console.WriteLine(course.Name + ", " + student.Name + " " + student.Surname + ", "
+                              + item.Year + ", " + item.Semester + ", " + item.Score);
+            }
+        }
+
         public static void Search()
         {
             System.Linq.IQueryable<universityBD.Grade> query = null;
