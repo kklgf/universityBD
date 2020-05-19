@@ -80,6 +80,12 @@ namespace universityBD
             Console.WriteLine("Showing all the ENROLLMENTS in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Enrollments;
+            print(query);
+        }
+
+        public static void print(IQueryable<Enrollment> query)
+        {
+            UniversityContext database = new UniversityContext();
             Console.WriteLine("Course Name".PadRight(20) + "| " + "Profesor".PadRight(30) + "| " + "Student".PadRight(30));
             Console.WriteLine("--------------------------------------------------------------------------------------");
             foreach (var item in query)
@@ -131,16 +137,7 @@ namespace universityBD
                         break;
                 }
             }
-            Console.WriteLine("Course, Profesor, Student");
-            foreach (var item in query)
-            {
-                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
-                var student = (Student) database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
-                var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
-                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.ProfesorID).FirstOrDefault();
-                Console.WriteLine(course.Name + ", " + employee.Name
-                    + " " + employee.Surname + ", " + student.Name + " " + student.Surname);
-            }
+            print(query);
         }
         public static Enrollment SearchToAdd()
         {
