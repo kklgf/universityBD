@@ -19,14 +19,16 @@ namespace universityBD
             bool run = true;
             while (run)
             {
-                Console.WriteLine("###############################");
-                Console.WriteLine("\nWhat you want to do?");
+                Console.WriteLine("\n###############################");
+                Console.WriteLine("What you want to do?");
                 Console.WriteLine("1. Search in database");
                 Console.WriteLine("2. Add to database");
                 Console.WriteLine("3. See the whole table");
-                Console.WriteLine("O. Close");
+                Console.WriteLine("0. Close");
                 Console.WriteLine("###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
+                Console.WriteLine("###############################");
                 switch (action)
                 {
                     case 1:
@@ -55,9 +57,8 @@ namespace universityBD
 
         static void Search(UniversityContext database)
         {
-            // throw new NotImplementedException();
-            Console.WriteLine("###############################");
-            Console.WriteLine("\nIn which table you want to search?");
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("In which table you want to search?");
             Console.WriteLine("1. Courses");
             Console.WriteLine("2. Departments");
             Console.WriteLine("3. Employees");
@@ -65,9 +66,11 @@ namespace universityBD
             Console.WriteLine("5. Grades");
             Console.WriteLine("6. Sections");
             Console.WriteLine("7. Students");
-            Console.WriteLine("O. Cancel");
+            Console.WriteLine("0. Cancel");
             Console.WriteLine("###############################");
+            Console.Write("Your choice: ");
             int action = int.Parse(Console.ReadLine());
+            Console.WriteLine("###############################");
             switch (action)
             {
                 case 1:
@@ -102,8 +105,8 @@ namespace universityBD
         static void SeeTable(UniversityContext database)
         {
             // throw new NotImplementedException();
-            Console.WriteLine("###############################");
-            Console.WriteLine("\nWhich table are you interested in?");
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("Which table are you interested in?");
             Console.WriteLine("1. Courses");
             Console.WriteLine("2. Departments");
             Console.WriteLine("3. Employees");
@@ -111,9 +114,11 @@ namespace universityBD
             Console.WriteLine("5. Grades");
             Console.WriteLine("6. Sections");
             Console.WriteLine("7. Students");
-            Console.WriteLine("O. Cancel");
+            Console.WriteLine("0. Cancel");
             Console.WriteLine("###############################");
+            Console.WriteLine("Your choice: ");
             int action = int.Parse(Console.ReadLine());
+            Console.WriteLine("###############################");
             switch (action)
             {
                 case 1:
@@ -147,8 +152,8 @@ namespace universityBD
 
         static object Add()
         {
-            Console.WriteLine("###############################");
-            Console.WriteLine("\nTo which table you want to add row?");
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("To which table do you want to add row?");
             Console.WriteLine("1. Courses");
             Console.WriteLine("2. Departments");
             Console.WriteLine("3. Employees");
@@ -158,7 +163,9 @@ namespace universityBD
             Console.WriteLine("7. Students");
             Console.WriteLine("O. Cancel");
             Console.WriteLine("###############################");
+            Console.WriteLine("Your choice: ");
             int action = int.Parse(Console.ReadLine());
+            Console.WriteLine("###############################");
             switch (action)
             {
                 case 1:
@@ -186,7 +193,7 @@ namespace universityBD
         }
         static void WrongAction()
         {
-            Console.WriteLine("###############################");
+            Console.WriteLine("\n###############################");
             Console.WriteLine("ERROR: CHOSEN INCORRECT ACTION");
             Console.WriteLine("###############################");
         }
