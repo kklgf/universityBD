@@ -48,7 +48,13 @@ namespace universityBD
             Console.WriteLine("Showing all the GRADES in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Grades;
-            Console.WriteLine("Course".PadRight(15)+ "| "+"Student".PadRight(30) + "| " + "Year".PadRight(6) +"| " + "Semester".PadRight(10) + "| " + "Score".PadRight(7));
+            print(query);
+        }
+
+        public static void print(IQueryable<Grade> query)
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("Course".PadRight(15) + "| " + "Student".PadRight(30) + "| " + "Year".PadRight(6) + "| " + "Semester".PadRight(10) + "| " + "Score".PadRight(7));
             Console.WriteLine("----------------------------------------------------------------------------");
             foreach (var item in query)
             {
@@ -109,14 +115,7 @@ namespace universityBD
                         break;
                 }
             }
-            Console.WriteLine("Course, Student, Year, Semester, Score");
-            foreach (var item in query)
-            {
-                var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
-                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
-                Console.WriteLine(course.Name + ", " + student.Name + " " + student.Surname + ", "
-                              + item.Year + ", " + item.Semester + ", " + item.Score); 
-            }
+            print(query);
         }
         public static Grade SearchToAdd()
         {
