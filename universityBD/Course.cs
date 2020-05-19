@@ -40,15 +40,22 @@ namespace universityBD
             Console.WriteLine("Showing all the COURSES in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Courses;
-            Console.WriteLine("ID".PadRight(4) + "| " +"Name".PadRight(15) + "| " +"ECTS".PadRight(5) +"| "+ "Department Name".PadRight(15));
+            print(query);
+        }
+
+        public static void print(IQueryable<Course> query)
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("ID".PadRight(4) + "| " + "Name".PadRight(15) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
             Console.WriteLine("----------------------------------------------");
-            foreach(var item in query)
+            foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
                 Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + "| " + item.ECTS.ToString().PadRight(5) +
                     "| " + department.Name.PadRight(15));
             }
         }
+
         public static void Search()
         {
             System.Linq.IQueryable<universityBD.Course> query = null;
@@ -95,13 +102,9 @@ namespace universityBD
                         break;
                 }
             }
-            Console.WriteLine("ID, Name, ECTS, Department");
-            foreach (var item in query)
-            {
-                var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
-                Console.WriteLine(item.CourseID + ", " + item.Name + ", " + item.ECTS + ", " + department.Name);
-            }
+            print(query);
         }
+
         public static Course SearchToAdd()
         {
             UniversityContext database = new UniversityContext();
