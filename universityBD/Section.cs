@@ -54,14 +54,17 @@ namespace universityBD
             Console.WriteLine("Showing all the SECTIONS in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Sections;
-            Console.WriteLine("ID | Course Name | Profesor | Day | Start Time | Length | Capacity | Free Places");
+            Console.WriteLine("ID".PadRight(4) + "| " +"Course Name".PadRight(15)+ "| " + "Profesor".PadRight(30) +"| " +"Day".PadRight(10)
+                +"| " + "Start Time".PadRight(11)+ "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) +"| " + "Free Places".PadRight(5));
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 int freePlaces = item.Capacity - CountStudentsOnSection(item);
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
-                Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
-                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity + ", " + freePlaces);
+                Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(15) + "| " + employee.Name.PadRight(14) + " " +
+                    employee.Surname.PadRight(15) + "| " + item.Day.ToString().PadRight(10) + "| " + item.StartTime.PadRight(11) + "| "
+                    + item.Length.ToString().PadRight(7) + "| " + item.Capacity.ToString().PadRight(10) + "| " + freePlaces.ToString().PadRight(5));
             }
         }
 
