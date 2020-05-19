@@ -141,12 +141,16 @@ namespace universityBD
             Console.WriteLine("Showing all the STUDENTS in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Students;
-            Console.WriteLine("ID | Name | Surname | Address | City | Country | Phone | Email | Graduation Year");
+            Console.WriteLine("ID".PadRight(4)+ "| " + "Name".PadRight(15) +"| " + "Surname".PadRight(15) + "| " + "Address".PadRight(20) +
+                "| " + "City".PadRight(10) + "| " + "Country".PadRight(10) +  "| " + "Phone".PadRight(15) +  "| " + "Email".PadRight(20) +
+                "| " +"Graduation Year".PadRight(20));
+            Console.WriteLine("--------------------------------------------------------------------------------" +
+                "------------------------------------------------------------");
             foreach (var item in query)
             {
-                Console.WriteLine(item.StudentID + ", " + item.Name + ", " + item.Surname
-                     + ", " + item.Address + ", " + item.City + ", " + item.Country + ", " + item.Phone
-                      + ", " + item.Email + ", " + item.GraduationYear);
+                Console.WriteLine(item.StudentID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + "| " + item.Surname.PadRight(15)
+                     + "| " + item.Address.PadRight(20) + "| " + item.City.PadRight(10) + "| " + item.Country.PadRight(10) + "| " + item.Phone.ToString().PadRight(15)
+                      + "| " + item.Email.PadRight(20) + "| " + item.GraduationYear.ToString().PadRight(20));
             }
         }
 
