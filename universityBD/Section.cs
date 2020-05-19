@@ -54,8 +54,14 @@ namespace universityBD
             Console.WriteLine("Showing all the SECTIONS in the database:");
             UniversityContext database = new UniversityContext();
             var query = database.Sections;
-            Console.WriteLine("ID".PadRight(4) + "| " +"Course Name".PadRight(15)+ "| " + "Profesor".PadRight(30) +"| " +"Day".PadRight(10)
-                +"| " + "Start Time".PadRight(11)+ "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) +"| " + "Free Places".PadRight(5));
+            print(query);
+        }
+
+        public static void print(IQueryable<Section> query)
+        {
+            UniversityContext database = new UniversityContext();
+            Console.WriteLine("ID".PadRight(4) + "| " + "Course Name".PadRight(15) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
+                + "| " + "Start Time".PadRight(11) + "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) + "| " + "Free Places".PadRight(5));
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
@@ -131,14 +137,7 @@ namespace universityBD
                         break;
                 }
             }
-            Console.WriteLine("ID, Course, Profesor, Day, StartTime, Length, Capacity");
-            foreach (var item in query)
-            {
-                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
-                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
-                Console.WriteLine(item.SectionID + ", " + course.Name + ", " + employee.Name + " " + employee.Surname +
-                        ", " + item.Day + ", " + item.StartTime + ", " + item.Length + ", " + item.Capacity);
-            }
+            print(query);
         }
         public static Section SearchToAdd()
         {
