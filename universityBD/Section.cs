@@ -63,7 +63,7 @@ namespace universityBD
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
                 Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(15) + "| " + employee.Name.PadRight(14) + " " +
-                    employee.Surname.PadRight(15) + "| " + item.Day.ToString().PadRight(10) + "| " + item.StartTime.PadRight(11) + "| "
+                    employee.Surname.PadRight(15) + "| " + WeekDays.Parse(item.Day).PadRight(10) + "| " + item.StartTime.PadRight(11) + "| "
                     + item.Length.ToString().PadRight(7) + "| " + item.Capacity.ToString().PadRight(10) + "| " + freePlaces.ToString().PadRight(5));
             }
         }
