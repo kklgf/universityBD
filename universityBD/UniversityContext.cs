@@ -21,7 +21,6 @@ namespace universityBD
         {
             modelBuilder.Entity<Enrollment>().HasKey(e => new
             {
-                e.CourseID,
                 e.SectionID,
                 e.StudentID
             });

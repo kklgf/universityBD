@@ -10,9 +10,6 @@ namespace universityBD
 {
     class Enrollment
     {
-        [ForeignKey("Course")]
-        public int CourseID { get; set; }
-        public Course Course { get; set; }
         [ForeignKey("Section")]
         public int SectionID { get; set; }
         public Section Section { get; set; }
@@ -64,7 +61,6 @@ namespace universityBD
                 { 
                     Enrollment enrollment = new Enrollment
                     {
-                        CourseID = CourseID,
                         SectionID = SectionID,
                         StudentID = StudentID
                     };
@@ -90,9 +86,9 @@ namespace universityBD
             Console.WriteLine("--------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
-                var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
                 var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
+                var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.ProfesorID).FirstOrDefault();
                 Console.WriteLine(course.Name.PadRight(20) + "| " + employee.Name.PadRight(14)
                     + " " + employee.Surname.PadRight(15) + "| " + student.Name.PadRight(14) + " " + student.Surname.PadRight(15));
@@ -108,23 +104,17 @@ namespace universityBD
             {
                 run = false;
                 Console.WriteLine("\nBy which value you want to search?");
-                Console.WriteLine("1. Course");
-                Console.WriteLine("2. Section");
-                Console.WriteLine("3. Student");
+                Console.WriteLine("1. Section");
+                Console.WriteLine("2. Student");
                 int action = int.Parse(Console.ReadLine());
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("Course (chose from existing):");
-                        int CourseID = Course.SearchToAdd().CourseID;
-                        query = database.Enrollments.Where(e => e.CourseID == CourseID);
-                        break;
-                    case 2:
                         Console.WriteLine("Section (chose from existing):");
                         int SectionID = Section.SearchToAdd().SectionID;
                         query = database.Enrollments.Where(e => e.SectionID == SectionID);
                         break;
-                    case 3:
+                    case 2:
                         Console.WriteLine("Student (chose from existing):");
                         int StudentID = Student.SearchToAdd().StudentID;
                         query = database.Enrollments.Where(e => e.StudentID == StudentID);
@@ -147,18 +137,17 @@ namespace universityBD
             while (run)
             {
                 Search();
-                Console.WriteLine("Now chose Enrollment by inserting Course's, Section's and Student's ID. Write '0' to abort.");
-                int idc = int.Parse(Console.ReadLine());
+                Console.WriteLine("Now chose Enrollment by inserting Section's and Student's ID. Write '0' to abort.");
                 int idse = int.Parse(Console.ReadLine());
                 int ids = int.Parse(Console.ReadLine());
-                if (idc == 0 || idse == 0 || ids == 0)
+                if (idse == 0 || ids == 0)
                 {
                     result = null;
                     break;
                 }
                 else 
                 {
-                    var query = database.Enrollments.Where(e => e.CourseID == idc && e.SectionID == idse && e.StudentID == ids).FirstOrDefault(); ;
+                    var query = database.Enrollments.Where(e => e.SectionID == idse && e.StudentID == ids).FirstOrDefault(); ;
                     if (query != null)
                     {
                         run = false;
