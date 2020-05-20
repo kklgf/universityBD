@@ -28,7 +28,7 @@ namespace universityBD
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
             var course = database.Courses.Where(c => c.CourseID == CourseID).FirstOrDefault();
-            Console.WriteLine("ProfesorID (chose from existing):");
+            Console.WriteLine("ProfessorID (chose from existing):");
             var potentialProfessors = database.Employees.Where(e => e.DepartmentID == course.DepartmentID);
             Employee.print(potentialProfessors);
             Console.WriteLine("\nEnter chosen professor ID: ");

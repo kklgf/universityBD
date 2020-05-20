@@ -212,24 +212,20 @@ namespace universityBD
             Console.WriteLine("Now choose the Employee by inserting it's ID. Write '0' to abort.");
             Console.Write("Your choice: ");
             int id = int.Parse(Console.ReadLine());
-            var foundEmployee = from employees in database.Employees
-                                where employees.EmployeeID == id
-                                select employees;
+            var employee = database.Employees.Where(e => e.EmployeeID == id).FirstOrDefault();
             switch(id)
             {
                 case 0:
                     break;
                 default:
-                    foreach (var item in foundEmployee)
+                    Console.WriteLine("");
+                    var foundSection = from sections in database.Sections
+                                        where sections.ProfesorID == employee.EmployeeID
+                                        select sections;
+                    foreach (var section in foundSection)
                     {
-                        var foundSection = from sections in database.Sections
-                                           where sections.ProfesorID == item.EmployeeID
-                                          select sections;
-                        foreach (var section in foundSection)
-                        {
-                            var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
-                            Console.WriteLine(item.Name + " " + item.Surname + " " + course.Name);
-                        }
+                       var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
+                       Console.WriteLine(employee.Name + " " + employee.Surname + ": " + course.Name);
                     }
                     break;
             }
