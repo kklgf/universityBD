@@ -29,16 +29,20 @@ namespace universityBD
             int CourseID = Course.SearchToAdd().CourseID;
             var course = database.Courses.Where(c => c.CourseID == CourseID).FirstOrDefault();
             Console.WriteLine("ProfesorID (chose from existing):");
-            int ProfesorID = Employee.SearchToAdd().EmployeeID;
+            var potentialProfessors = database.Employees.Where(e => e.DepartmentID == course.DepartmentID);
+            Employee.print(potentialProfessors);
+            Console.WriteLine("\nEnter chosen professor ID: ");
+            int ProfesorID = int.Parse(Console.ReadLine());
             bool professorFound = false;
             while (!professorFound)
             {
                 var profesor = database.Employees.Where(e => e.EmployeeID == ProfesorID).FirstOrDefault();
-                if (profesor.DepartmentID != course.CourseID)
+                if (profesor.DepartmentID != course.DepartmentID)
                 {
-                    Console.WriteLine("This professor does not teach in the department you chose!");
-                    Console.WriteLine("Please choose another professor: ");
-                    ProfesorID = Employee.SearchToAdd().EmployeeID;
+                    Console.WriteLine("THIS PROFESSOR DOES NOT TEACH IN THE DEPARTMENT YOU CHOSE!");
+                    Console.WriteLine("Please choose another professor from the ones below:\n");
+                    Employee.print(potentialProfessors);
+                    ProfesorID = int.Parse(Console.ReadLine());
                 }
                 else professorFound = true;
             }
@@ -73,7 +77,7 @@ namespace universityBD
         public static void print(IQueryable<Section> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Course Name".PadRight(15) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Course Name".PadRight(20) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
                 + "| " + "Start Time".PadRight(11) + "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) + "| " + "Free Places".PadRight(5));
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
@@ -81,7 +85,7 @@ namespace universityBD
                 int freePlaces = item.Capacity - CountStudentsOnSection(item);
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.ProfesorID).FirstOrDefault();
-                Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(15) + "| " + employee.Name.PadRight(14) + " " +
+                Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(20) + "| " + employee.Name.PadRight(14) + " " +
                     employee.Surname.PadRight(15) + "| " + WeekDays.Parse(item.Day).PadRight(10) + "| " + item.StartTime.PadRight(11) + "| "
                     + item.Length.ToString().PadRight(7) + "| " + item.Capacity.ToString().PadRight(10) + "| " + freePlaces.ToString().PadRight(5));
             }

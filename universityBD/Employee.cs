@@ -36,7 +36,7 @@ namespace universityBD
                 "| " + "Address".PadRight(30) + "| " + "City".PadRight(20) + "| " + "Country".PadRight(15) +
                 "| " + "Phone".PadRight(20) + "| " + "Email".PadRight(20) + "| " + "Salary".PadRight(10) + "| " + "Department Name".PadRight(15));
             Console.WriteLine("----------------------------------------------------------------------------------------------" +
-                "---------------------------------------------------------------------------------");
+                "--------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
