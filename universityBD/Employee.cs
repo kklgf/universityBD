@@ -14,7 +14,7 @@ namespace universityBD
         public String Address { get; set; }
         public String City { get; set; }
         public String Country { get; set; }
-        public int Phone { get; set; }
+        public String Phone { get; set; }
         public String Email { get; set; }
         public int Salary { get; set; }
         [ForeignKey("Department")]
@@ -60,7 +60,7 @@ namespace universityBD
             Console.WriteLine("Country:");
             String Country = Console.ReadLine();
             Console.WriteLine("Phone:");
-            int Phone = int.Parse(Console.ReadLine());
+            String Phone = Console.ReadLine();
             Console.WriteLine("Email:");
             String Email = Console.ReadLine();
             Console.WriteLine("Salary:");
@@ -137,8 +137,8 @@ namespace universityBD
                         break;
                     case 7:
                         Console.WriteLine("Phone:");
-                        int Phone = int.Parse(Console.ReadLine());
-                        query = database.Employees.Where(e => e.Phone == Phone);
+                        String Phone = Console.ReadLine();
+                        query = database.Employees.Where(e => e.Phone.Contains(Phone));
                         break;
                     case 8:
                         Console.WriteLine("Email:");

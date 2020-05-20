@@ -13,7 +13,7 @@ namespace universityBD
         public static Department NewDepartment()
         {
             Console.WriteLine("\nYou need to specify this value.");
-            Console.WriteLine("Enter new department's NAME:");
+            Console.Write("Name: ");
             String Name = Console.ReadLine();
             Department department = new Department
             {
@@ -32,11 +32,11 @@ namespace universityBD
 
         public static void print(IQueryable<Department> query)
         {
-            Console.WriteLine("ID".PadRight(4) + "| " + "Name".PadRight(15));
-            Console.WriteLine("-------------------");
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(20));
+            Console.WriteLine("-------------------------------");
             foreach (var item in query)
             {
-                Console.WriteLine(item.DepartmentID.ToString().PadRight(4) + "| " + item.Name.PadRight(15));
+                Console.WriteLine(item.DepartmentID.ToString().PadRight(4) + "| " + item.Name.PadRight(20));
             }
         }
 
@@ -51,24 +51,29 @@ namespace universityBD
                 Console.WriteLine("\nBy which value you want to search?");
                 Console.WriteLine("1. ID");
                 Console.WriteLine("2. Name");
-                Console.WriteLine("O. Cancel");
+                Console.WriteLine("0. Cancel");
+                Console.WriteLine("\n###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
+                Console.WriteLine("###############################");
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("ID:");
+                        Console.Write("Department ID: ");
                         int id = int.Parse(Console.ReadLine());
                         query = database.Departments.Where(d => d.DepartmentID == id);
                         break;
                     case 2:
-                        Console.WriteLine("Name:");
+                        Console.Write("Department Name: ");
                         String Name = Console.ReadLine();
                         query = database.Departments.Where(d => d.Name.Contains(Name));
                         break;
                     case 0:
                         return;
                     default:
+                        Console.WriteLine("\n###############################");
                         Console.WriteLine("ERROR: CHOSEN INCORRECT VALUE");
+                        Console.WriteLine("###############################");
                         run = true;
                         break;
                 }
@@ -84,6 +89,7 @@ namespace universityBD
             {
                 Search();
                 Console.WriteLine("Now chose Department by inserting it's ID. Write '0' to abort.");
+                Console.Write("Your choice: ");
                 int id = int.Parse(Console.ReadLine());
                 switch (id)
                 {

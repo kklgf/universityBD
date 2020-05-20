@@ -54,7 +54,6 @@ C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\obj\Debug\netcoreap
 C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Fiołko\Source\Repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.dll
 C:\Users\Fiołko\Source\Repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.pdb
-C:\Users\Fiołko\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\University.db
 C:\Users\Fiołko\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\universityBD.exe
 C:\Users\Fiołko\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\universityBD.deps.json
 C:\Users\Fiołko\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\universityBD.runtimeconfig.json
@@ -107,3 +106,4 @@ C:\Users\Fiołko\source\repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\
 C:\Users\Fiołko\source\repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.AssemblyInfo.cs
 C:\Users\Fiołko\source\repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.csproj.CopyComplete
 C:\Users\Fiołko\source\repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.genruntimeconfig.cache
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\University.db

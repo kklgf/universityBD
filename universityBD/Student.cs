@@ -16,7 +16,7 @@ namespace universityBD
         public String Address { get; set; }
         public String City { get; set; }
         public String Country { get; set; }
-        public int Phone { get; set; }
+        public String Phone { get; set; }
         public String Email { get; set; }
         public int GraduationYear { get; set; }
 
@@ -36,7 +36,7 @@ namespace universityBD
             Console.Write("Country: ");
             String Country = Console.ReadLine();
             Console.Write("Phone: ");
-            int Phone = int.Parse(Console.ReadLine());
+            String Phone = Console.ReadLine();
             Console.Write("Email: ");
             String Email = Console.ReadLine();
             Console.Write("GraduationYear: ");
@@ -112,8 +112,8 @@ namespace universityBD
                         break;
                     case 7:
                         Console.Write("Phone: ");
-                        int Phone = int.Parse(Console.ReadLine());
-                        query = database.Students.Where(s => s.Phone == Phone);
+                        String Phone = Console.ReadLine();
+                        query = database.Students.Where(s => s.Phone.Contains(Phone));
                         break;
                     case 8:
                         Console.Write("Email: ");
