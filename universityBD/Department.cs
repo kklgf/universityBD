@@ -95,6 +95,7 @@ namespace universityBD
                 {
                     case 0:
                         result = null;
+                        run = false;
                         break;
                     default:
                         var query = database.Departments.Where(d => d.DepartmentID == id).FirstOrDefault(); ;

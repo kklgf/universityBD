@@ -27,15 +27,28 @@ namespace universityBD
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
+            var course = database.Courses.Where(c => c.CourseID == CourseID).FirstOrDefault();
             Console.WriteLine("ProfesorID (chose from existing):");
             int ProfesorID = Employee.SearchToAdd().EmployeeID;
-            Console.WriteLine("Day:");
+            bool professorFound = false;
+            while (!professorFound)
+            {
+                var profesor = database.Employees.Where(e => e.EmployeeID == ProfesorID).FirstOrDefault();
+                if (profesor.DepartmentID != course.CourseID)
+                {
+                    Console.WriteLine("This professor does not teach in the department you chose!");
+                    Console.WriteLine("Please choose another professor: ");
+                    ProfesorID = Employee.SearchToAdd().EmployeeID;
+                }
+                else professorFound = true;
+            }
+            Console.Write("Day [number]: ");
             int Day = int.Parse(Console.ReadLine());
-            Console.WriteLine("StartTime:");
+            Console.Write("StartTime: ");
             String StartTime = Console.ReadLine();
-            Console.WriteLine("Length:");
+            Console.Write("Length: ");
             int Length = int.Parse(Console.ReadLine());
-            Console.WriteLine("Capacity:");
+            Console.Write("Capacity: ");
             int Capacity = int.Parse(Console.ReadLine());
             Section section = new Section
             {
@@ -60,7 +73,7 @@ namespace universityBD
         public static void print(IQueryable<Section> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("ID".PadRight(4) + "| " + "Course Name".PadRight(15) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Course Name".PadRight(15) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
                 + "| " + "Start Time".PadRight(11) + "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) + "| " + "Free Places".PadRight(5));
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
@@ -95,7 +108,7 @@ namespace universityBD
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("ID:");
+                        Console.Write("ID: ");
                         int id = int.Parse(Console.ReadLine());
                         query = database.Sections.Where(s => s.SectionID == id);
                         break;
@@ -110,29 +123,31 @@ namespace universityBD
                         query = database.Sections.Where(s => s.ProfesorID == EmployeeID);
                         break;
                     case 4:
-                        Console.WriteLine("Day:");
+                        Console.Write("Day: ");
                         int Day = int.Parse(Console.ReadLine());
                         query = database.Sections.Where(s => s.Day == Day);
                         break;
                     case 5:
-                        Console.WriteLine("StartTime:");
+                        Console.Write("StartTime: ");
                         String StartTime = Console.ReadLine();
                         query = database.Sections.Where(s => s.StartTime.Contains(StartTime));
                         break;
                     case 6:
-                        Console.WriteLine("Length:");
+                        Console.Write("Length: ");
                         int Length = int.Parse(Console.ReadLine());
                         query = database.Sections.Where(s => s.Length == Length);
                         break;
                     case 7:
-                        Console.WriteLine("Capacity:");
+                        Console.Write("Capacity: ");
                         int Capacity = int.Parse(Console.ReadLine());
                         query = database.Sections.Where(s => s.Capacity == Capacity);
                         break;
                     case 0:
                         return;
                     default:
+                        Console.WriteLine("\n###############################");
                         Console.WriteLine("ERROR: CHOSEN INCORRECT VALUE");
+                        Console.WriteLine("###############################\n");
                         run = true;
                         break;
                 }
@@ -148,11 +163,13 @@ namespace universityBD
             {
                 Search();
                 Console.WriteLine("Now chose Section by inserting it's ID. Write '0' to abort.");
+                Console.Write("Your choice: ");
                 int id = int.Parse(Console.ReadLine());
                 switch (id)
                 {
                     case 0:
                         result = null;
+                        run = false;
                         break;
                     default:
                         var query = database.Sections.Where(s => s.SectionID == id).FirstOrDefault(); ;
@@ -190,6 +207,7 @@ namespace universityBD
             Console.WriteLine("First find the Section you're interested in: ");
             Search();
             Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
+            Console.Write("Your choice: ");
             int id = int.Parse(Console.ReadLine());
             switch (id)
             {

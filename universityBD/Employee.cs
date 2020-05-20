@@ -32,16 +32,16 @@ namespace universityBD
         public static void print(IQueryable<Employee> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("ID".PadRight(4) + "| " + "Name".PadRight(15) + " " + "Surname".PadRight(15) +
-                "| " + "Address".PadRight(30) + "| " + "City".PadRight(10) + "| " + "Country".PadRight(10) +
-                "| " + "Phone".PadRight(10) + "| " + "Email".PadRight(20) + "| " + "Salary".PadRight(10) + "|" + "Department Name".PadRight(15));
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + " " + "Surname".PadRight(15) +
+                "| " + "Address".PadRight(30) + "| " + "City".PadRight(20) + "| " + "Country".PadRight(15) +
+                "| " + "Phone".PadRight(20) + "| " + "Email".PadRight(20) + "| " + "Salary".PadRight(10) + "| " + "Department Name".PadRight(15));
             Console.WriteLine("----------------------------------------------------------------------------------------------" +
-                "------------------------------------------------------------------");
+                "---------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
                 Console.WriteLine(item.EmployeeID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + " " + item.Surname.PadRight(15) + "| "
-                    + item.Address.PadRight(30) + "| " + item.City.PadRight(10) + "| " + item.Country.PadRight(10) + "| " + item.Phone.ToString().PadRight(10)
+                    + item.Address.PadRight(30) + "| " + item.City.PadRight(20) + "| " + item.Country.PadRight(15) + "| " + item.Phone.ToString().PadRight(20)
                     + "| " + item.Email.PadRight(20) + "| " + item.Salary.ToString().PadRight(10) + "| " + department.Name.PadRight(15));
             }
         }
@@ -49,21 +49,21 @@ namespace universityBD
         public static Employee NewEmployee()
         {
             Console.WriteLine("\nAdding a new EMPLOYEE\nYou need to specify those values.");
-            Console.WriteLine("Name:");
+            Console.Write("Name: ");
             String Name = Console.ReadLine();
-            Console.WriteLine("Surname:");
+            Console.Write("Surname: ");
             String Surname = Console.ReadLine();
-            Console.WriteLine("Address:");
+            Console.Write("Address: ");
             String Address = Console.ReadLine();
-            Console.WriteLine("City:");
+            Console.Write("City: ");
             String City = Console.ReadLine();
-            Console.WriteLine("Country:");
+            Console.Write("Country: ");
             String Country = Console.ReadLine();
-            Console.WriteLine("Phone:");
+            Console.Write("Phone: ");
             String Phone = Console.ReadLine();
-            Console.WriteLine("Email:");
+            Console.Write("Email: ");
             String Email = Console.ReadLine();
-            Console.WriteLine("Salary:");
+            Console.Write("Salary: ");
             int Salary = int.Parse(Console.ReadLine());
             Console.WriteLine("Department (chose from existing):");
             int DepartmentID = Department.SearchToAdd().DepartmentID;
@@ -102,63 +102,68 @@ namespace universityBD
                 Console.WriteLine("9. Salary");
                 Console.WriteLine("10. Department");
                 Console.WriteLine("O. Cancel");
+                Console.WriteLine("###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
+                Console.WriteLine("###############################");
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("ID:");
+                        Console.Write("Employee's ID: ");
                         int id = int.Parse(Console.ReadLine());
                         query = database.Employees.Where(e => e.EmployeeID == id);
                         break;
                     case 2:
-                        Console.WriteLine("Name:");
+                        Console.Write("Employee's Name: ");
                         String Name = Console.ReadLine();
                         query = database.Employees.Where(e => e.Name.Contains(Name));
                         break;
                     case 3:
-                        Console.WriteLine("Surname:");
+                        Console.Write("Employee's Surname:");
                         String Surname = Console.ReadLine();
                         query = database.Employees.Where(e => e.Surname.Contains(Surname));
                         break;
                     case 4:
-                        Console.WriteLine("Address:");
+                        Console.Write("Employee's Address:");
                         String Address = Console.ReadLine();
                         query = database.Employees.Where(e => e.Address.Contains(Address));
                         break;
                     case 5:
-                        Console.WriteLine("City:");
+                        Console.Write("Employee's City:");
                         String City = Console.ReadLine();
                         query = database.Employees.Where(e => e.City.Contains(City));
                         break;
                     case 6:
-                        Console.WriteLine("Country:");
+                        Console.Write("Employee's Country:");
                         String Country = Console.ReadLine();
                         query = database.Employees.Where(e => e.Country.Contains(Country));
                         break;
                     case 7:
-                        Console.WriteLine("Phone:");
+                        Console.Write("Employee's Phone:");
                         String Phone = Console.ReadLine();
                         query = database.Employees.Where(e => e.Phone.Contains(Phone));
                         break;
                     case 8:
-                        Console.WriteLine("Email:");
+                        Console.Write("Employee's Email:");
                         String Email = Console.ReadLine();
                         query = database.Employees.Where(e => e.Email.Contains(Email));
                         break;
                     case 9:
-                        Console.WriteLine("Salary:");
+                        Console.Write("Employee's Salary:");
                         int Salary = int.Parse(Console.ReadLine());
                         query = database.Employees.Where(e => e.Salary == Salary);
                         break;
                     case 10:
-                        Console.WriteLine("Department (chose from existing):");
+                        Console.Write("Employee's Department (chose from existing):");
                         int DepartmentID = Department.SearchToAdd().DepartmentID;
                         query = database.Employees.Where(e => e.DepartmentID == DepartmentID);
                         break;
                     case 0:
                         return;
                     default:
+                        Console.WriteLine("\n###############################");
                         Console.WriteLine("ERROR: CHOSEN INCORRECT VALUE");
+                        Console.WriteLine("###############################");
                         run = true;
                         break;
                 }
@@ -174,6 +179,7 @@ namespace universityBD
             {
                 Search();
                 Console.WriteLine("Now chose Employee by inserting it's ID. Write '0' to abort.");
+                Console.Write("Your choice: ");
                 int id = int.Parse(Console.ReadLine());
                 switch (id)
                 {
@@ -204,6 +210,7 @@ namespace universityBD
             Console.WriteLine("First find the employee whose courses you'd like to see");
             Search();
             Console.WriteLine("Now choose the Employee by inserting it's ID. Write '0' to abort.");
+            Console.Write("Your choice: ");
             int id = int.Parse(Console.ReadLine());
             var foundEmployee = from employees in database.Employees
                                 where employees.EmployeeID == id

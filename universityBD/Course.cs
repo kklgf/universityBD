@@ -22,9 +22,9 @@ namespace universityBD
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Department (chose from existing):");
             int DepartmentID = Department.SearchToAdd().DepartmentID;
-            Console.WriteLine("Enter the new course's NAME:");
+            Console.Write("Enter the new course's NAME: ");
             String Name = Console.ReadLine();
-            Console.WriteLine("ECTS:");
+            Console.Write("ECTS: ");
             int ECTS = int.Parse(Console.ReadLine());
             Course course = new Course
             {
@@ -46,7 +46,7 @@ namespace universityBD
         public static void print(IQueryable<Course> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("ID".PadRight(4) + "| " + "Name".PadRight(15) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
             Console.WriteLine("----------------------------------------------");
             foreach (var item in query)
             {
@@ -69,23 +69,26 @@ namespace universityBD
                 Console.WriteLine("2. Name");
                 Console.WriteLine("3. ECTS");
                 Console.WriteLine("4. Department");
-                Console.WriteLine("O. Cancel");
+                Console.WriteLine("0. Cancel");
+                Console.WriteLine("\n###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
+                Console.WriteLine("###############################");
                 query = database.Courses;
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("ID:");
+                        Console.Write("ID: ");
                         int id = int.Parse(Console.ReadLine());
                         query = database.Courses.Where(c => c.CourseID == id);
                         break;
                     case 2:
-                        Console.WriteLine("Name:");
+                        Console.Write("Name: ");
                         String Name = Console.ReadLine();
                         query = database.Courses.Where(c => c.Name.Contains(Name));
                         break;
                     case 3:
-                        Console.WriteLine("ECTS:");
+                        Console.Write("ECTS: ");
                         int ECTS = int.Parse(Console.ReadLine());
                         query = database.Courses.Where(c => c.ECTS == ECTS);
                         break;
@@ -97,7 +100,9 @@ namespace universityBD
                     case 0:
                         return;
                     default:
+                        Console.WriteLine("\n###############################");
                         Console.WriteLine("ERROR: CHOSEN INCORRECT VALUE");
+                        Console.WriteLine("###############################");
                         run = true;
                         break;
                 }
@@ -114,11 +119,13 @@ namespace universityBD
             {
                 Search();
                 Console.WriteLine("Now chose Course by inserting it's ID. Write '0' to abort.");
+                Console.Write("Your choice: ");
                 int id = int.Parse(Console.ReadLine());
                 switch (id)
                 {
                     case 0:
                         result = null;
+                        run = false;
                         break;
                     default:
                         var query = database.Courses.Where(c => c.CourseID == id).FirstOrDefault(); ;
