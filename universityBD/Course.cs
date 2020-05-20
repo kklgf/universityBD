@@ -21,18 +21,23 @@ namespace universityBD
         {
             Console.WriteLine("\nYou need to specify those values.");
             Console.WriteLine("Department (chose from existing):");
-            int DepartmentID = Department.SearchToAdd().DepartmentID;
-            Console.Write("Enter the new course's NAME: ");
-            String Name = Console.ReadLine();
-            Console.Write("ECTS: ");
-            int ECTS = int.Parse(Console.ReadLine());
-            Course course = new Course
+            Department result = Department.SearchToAdd();
+            if(result != null)
             {
-                DepartmentID = DepartmentID,
-                Name = Name,
-                ECTS = ECTS
-            };
-            return course;
+                int DepartmentID = result.DepartmentID;
+                Console.Write("Enter the new course's NAME: ");
+                String Name = Console.ReadLine();
+                Console.Write("ECTS: ");
+                int ECTS = int.Parse(Console.ReadLine());
+                Course course = new Course
+                {
+                    DepartmentID = DepartmentID,
+                    Name = Name,
+                    ECTS = ECTS
+                };
+                return course;
+            }
+            return null;
         }
 
         public static void SeeAll()
@@ -46,12 +51,12 @@ namespace universityBD
         public static void print(IQueryable<Course> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(20) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
             Console.WriteLine("----------------------------------------------");
             foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
-                Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + "| " + item.ECTS.ToString().PadRight(5) +
+                Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(20) + "| " + item.ECTS.ToString().PadRight(5) +
                     "| " + department.Name.PadRight(15));
             }
         }
