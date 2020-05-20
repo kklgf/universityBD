@@ -23,22 +23,23 @@ namespace universityBD
 
         public static Student NewStudent()
         {
-            Console.WriteLine("\nYou need to specify those values.");
-            Console.WriteLine("Name:");
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("You need to specify those values.");
+            Console.Write("Name: ");
             String Name = Console.ReadLine();
-            Console.WriteLine("Surname:");
+            Console.Write("Surname: ");
             String Surname = Console.ReadLine();
-            Console.WriteLine("Address:");
+            Console.Write("Address: ");
             String Address = Console.ReadLine();
-            Console.WriteLine("City:");
+            Console.Write("City: ");
             String City = Console.ReadLine();
-            Console.WriteLine("Country:");
+            Console.Write("Country: ");
             String Country = Console.ReadLine();
-            Console.WriteLine("Phone:");
+            Console.Write("Phone: ");
             int Phone = int.Parse(Console.ReadLine());
-            Console.WriteLine("Email:");
+            Console.Write("Email: ");
             String Email = Console.ReadLine();
-            Console.WriteLine("GraduationYear:");
+            Console.Write("GraduationYear: ");
             int GraduationYear = int.Parse(Console.ReadLine());
             Student student = new Student
             {
@@ -61,7 +62,8 @@ namespace universityBD
             while (run)
             {
                 run = false;
-                Console.WriteLine("\nBy which value you want to search?");
+                Console.WriteLine("\n###############################");
+                Console.WriteLine("By which value you want to search?");
                 Console.WriteLine("1. ID");
                 Console.WriteLine("2. Name");
                 Console.WriteLine("3. Surname");
@@ -71,70 +73,76 @@ namespace universityBD
                 Console.WriteLine("7. Phone");
                 Console.WriteLine("8. Email");
                 Console.WriteLine("9. Graduation year");
-                Console.WriteLine("O. Cancel");
+                Console.WriteLine("0. Cancel");
+                Console.WriteLine("###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
+                Console.WriteLine("###############################");
                 switch (action)
                 {
                     case 1:
-                        Console.WriteLine("ID:");
+                        Console.Write("ID: ");
                         int id = int.Parse(Console.ReadLine());
                         query = database.Students.Where(s => s.StudentID == id);
                         break;
                     case 2:
-                        Console.WriteLine("Name:");
+                        Console.Write("Name: ");
                         String Name = Console.ReadLine();
                         query = database.Students.Where(s => s.Name.Contains(Name));
                         break;
                     case 3:
-                        Console.WriteLine("Surname:");
+                        Console.Write("Surname: ");
                         String Surname = Console.ReadLine();
                         query = database.Students.Where(s => s.Surname.Contains(Surname));
                         break;
                     case 4:
-                        Console.WriteLine("Address:");
+                        Console.Write("Address: ");
                         String Address = Console.ReadLine();
                         query = database.Students.Where(s => s.Address.Contains(Address));
                         break;
                     case 5:
-                        Console.WriteLine("City:");
+                        Console.Write("City: ");
                         String City = Console.ReadLine();
                         query = database.Students.Where(s => s.City.Contains(City));
                         break;
                     case 6:
-                        Console.WriteLine("Country:");
+                        Console.Write("Country: ");
                         String Country = Console.ReadLine();
                         query = database.Students.Where(s => s.Country.Contains(Country));
                         break;
                     case 7:
-                        Console.WriteLine("Phone:");
+                        Console.Write("Phone: ");
                         int Phone = int.Parse(Console.ReadLine());
                         query = database.Students.Where(s => s.Phone == Phone);
                         break;
                     case 8:
-                        Console.WriteLine("Email:");
+                        Console.Write("Email: ");
                         String Email = Console.ReadLine();
                         query = database.Students.Where(s => s.Email.Contains(Email));
                         break;
                     case 9:
-                        Console.WriteLine("Graduation year:");
+                        Console.Write("Graduation year: ");
                         int GraduationYear = int.Parse(Console.ReadLine());
                         query = database.Students.Where(s => s.GraduationYear == GraduationYear);
                         break;
                     case 0:
                         return;
                     default:
+                        Console.WriteLine("\n###############################");
                         Console.WriteLine("ERROR: CHOSEN INCORRECT VALUE");
+                        Console.WriteLine("###############################");
                         run = true;
                         break;
                 }
             }
+            Console.WriteLine("###############################");
             print(query);
         }
 
 
         public static void print(IQueryable<Student> query)
         {
-            Console.WriteLine("ID".PadRight(4) + "| " + "Name".PadRight(15) + "| " + "Surname".PadRight(15) + "| " + "Address".PadRight(20) +
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + "| " + "Surname".PadRight(15) + "| " + "Address".PadRight(20) +
                 "| " + "City".PadRight(10) + "| " + "Country".PadRight(10) + "| " + "Phone".PadRight(15) + "| " + "Email".PadRight(20) +
                 "| " + "Graduation Year".PadRight(20));
             Console.WriteLine("--------------------------------------------------------------------------------" +
@@ -163,7 +171,7 @@ namespace universityBD
             while (run)
             {
                 Search();
-                Console.WriteLine("Now chose Student by inserting it's ID. Write '0' to abort.");
+                Console.Write("Now chose Student by inserting it's ID / Write '0' to abort: ");
                 int id = int.Parse(Console.ReadLine());
                 switch (id)
                 {
@@ -207,9 +215,11 @@ namespace universityBD
         public static void StudentsGrades()
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("First find the student whose grades you'd like to see");
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("\nFirst find the student whose grades you'd like to see");
             Search();
-            Console.WriteLine("Choose selected Student by inserting it's ID. Write '0' to abort.");
+            Console.WriteLine("\n###############################");
+            Console.Write("Choose selected Student by inserting it's ID / Write '0' to abort: ");
             int id = int.Parse(Console.ReadLine());
             switch(id)
             {
@@ -224,13 +234,19 @@ namespace universityBD
                                 on grades.StudentID equals students.StudentID
                                 where students.StudentID == id
                                 select grades;
-                    foreach(var item in query)
+                    Console.WriteLine("\nName".PadRight(16) + "| " + "Surname".PadRight(15) + "| " + "Course Name".PadRight(15) +
+                                                "| " + "SCORE".PadRight(10));
+                    Console.WriteLine("-----------------------------------------------------------------");
+                    foreach (var item in query)
                     {
                         var foundCourse = from courses in database.Courses
                                           where courses.CourseID == item.CourseID
                                           select courses;
                         foreach (var course in foundCourse)
-                        { Console.WriteLine(student.Name + " " + student.Surname + ", Course Name: " + course.Name + ", SCORE: " + item.Score); }
+                        {
+                            Console.WriteLine(student.Name.PadRight(15) + "| " + student.Surname.PadRight(15)
+                                     + "| " + course.Name.PadRight(15) + "| " + item.Score.ToString().PadRight(10));
+                        }
                     }
                     break;
             }
@@ -242,14 +258,14 @@ namespace universityBD
             int result = 0;
             Console.WriteLine("First find the student whose ECTS points you'd like to see");
             Search();
-            Console.WriteLine("Choose selected Student by inserting it's ID. Write '0' to abort.");
+            Console.Write("Choose selected Student by inserting it's ID / Write '0' to abort: ");
             int id = int.Parse(Console.ReadLine());
             switch (id)
             {
                 case 0:
                     break;
                 default:
-                    Console.WriteLine("choose the semeester you are interested in: ");
+                    Console.Write("Choose the semeester you are interested in: ");
                     int semester = int.Parse(Console.ReadLine());
                     var query = from courses in database.Courses
                                 join grades in database.Grades
@@ -266,7 +282,7 @@ namespace universityBD
                             result += passedCourse.ECTS;
                         }
                     }
-                    Console.WriteLine("Collected ECTS points: " + result);
+                    Console.WriteLine("\nCollected ECTS points: " + result);
                     break;
             }
         }

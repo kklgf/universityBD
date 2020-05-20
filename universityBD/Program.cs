@@ -11,11 +11,6 @@ namespace universityBD
             Console.WriteLine("UniversityDB version " + version);
             Console.WriteLine("###############################");
             UniversityContext database = new UniversityContext();
-            // Student.StudentsGrades();
-            // Employee.EmployeesCourses();
-            // Student.StudentsECTS();
-            // Section.AttendanceList();
-            // Section.FreePlaces();
             bool run = true;
             while (run)
             {
@@ -24,6 +19,7 @@ namespace universityBD
                 Console.WriteLine("1. Search in database");
                 Console.WriteLine("2. Add to database");
                 Console.WriteLine("3. See the whole table");
+                Console.WriteLine("4. See a specific view");
                 Console.WriteLine("0. Close");
                 Console.WriteLine("###############################");
                 Console.Write("Your choice: ");
@@ -44,6 +40,9 @@ namespace universityBD
                         break;
                     case 3:
                         SeeTable(database);
+                        break;
+                    case 4:
+                        SpecificViews();
                         break;
                     case 0:
                         run = false;
@@ -104,7 +103,6 @@ namespace universityBD
 
         static void SeeTable(UniversityContext database)
         {
-            // throw new NotImplementedException();
             Console.WriteLine("\n###############################");
             Console.WriteLine("Which table are you interested in?");
             Console.WriteLine("1. Courses");
@@ -116,7 +114,7 @@ namespace universityBD
             Console.WriteLine("7. Students");
             Console.WriteLine("0. Cancel");
             Console.WriteLine("###############################");
-            Console.WriteLine("Your choice: ");
+            Console.Write("Your choice: ");
             int action = int.Parse(Console.ReadLine());
             Console.WriteLine("###############################");
             switch (action)
@@ -163,7 +161,7 @@ namespace universityBD
             Console.WriteLine("7. Students");
             Console.WriteLine("O. Cancel");
             Console.WriteLine("###############################");
-            Console.WriteLine("Your choice: ");
+            Console.Write("Your choice: ");
             int action = int.Parse(Console.ReadLine());
             Console.WriteLine("###############################");
             switch (action)
@@ -191,6 +189,46 @@ namespace universityBD
             return null;
 
         }
+
+        static void SpecificViews()
+        {
+            Console.WriteLine("\n###############################");
+            Console.WriteLine("What are you interested in?");
+            Console.WriteLine("1. Grades of a particular student (search for student)");
+            Console.WriteLine("2. ECTS points of a particular student (search for student)");
+            Console.WriteLine("3. Courses of a particular employee (search for employee)");
+            Console.WriteLine("4. Attendance list on a particular section (search for section)");
+            Console.WriteLine("5. Free places on a particular section (search for section)");
+            Console.WriteLine("0. Cancel");
+            Console.WriteLine("###############################");
+            Console.Write("Your choice: ");
+            int action = int.Parse(Console.ReadLine());
+            Console.WriteLine("###############################");
+            switch (action)
+            {
+                case 1:
+                    Student.StudentsGrades();
+                    break;
+                case 2:
+                    Student.StudentsECTS();
+                    break;
+                case 3:
+                    Employee.EmployeesCourses();
+                    break;
+                case 4:
+                    Section.AttendanceList();
+                    break;
+                case 5:
+                    Section.FreePlaces();
+                    break;
+                case 0:
+                    break;
+                default:
+                    WrongAction();
+                    break;
+            }
+        }
+
         static void WrongAction()
         {
             Console.WriteLine("\n###############################");
