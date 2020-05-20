@@ -2,7 +2,7 @@
 
 namespace universityBD.Migrations
 {
-    public partial class schema : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,7 @@ namespace universityBD.Migrations
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
-                    Phone = table.Column<int>(nullable: false),
+                    Phone = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     GraduationYear = table.Column<int>(nullable: false)
                 },
@@ -71,7 +71,7 @@ namespace universityBD.Migrations
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
-                    Phone = table.Column<int>(nullable: false),
+                    Phone = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Salary = table.Column<int>(nullable: false),
                     DepartmentID = table.Column<int>(nullable: false)
@@ -149,19 +149,12 @@ namespace universityBD.Migrations
                 name: "Enrollments",
                 columns: table => new
                 {
-                    CourseID = table.Column<int>(nullable: false),
                     SectionID = table.Column<int>(nullable: false),
                     StudentID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollments", x => new { x.CourseID, x.SectionID, x.StudentID });
-                    table.ForeignKey(
-                        name: "FK_Enrollments_Courses_CourseID",
-                        column: x => x.CourseID,
-                        principalTable: "Courses",
-                        principalColumn: "CourseID",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Enrollments", x => new { x.SectionID, x.StudentID });
                     table.ForeignKey(
                         name: "FK_Enrollments_Sections_SectionID",
                         column: x => x.SectionID,
@@ -185,11 +178,6 @@ namespace universityBD.Migrations
                 name: "IX_Employees_DepartmentID",
                 table: "Employees",
                 column: "DepartmentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_SectionID",
-                table: "Enrollments",
-                column: "SectionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_StudentID",

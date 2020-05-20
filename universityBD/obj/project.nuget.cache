@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pAxD+O9w7MaJnGh8KuG26hbQ9OVOrbWw30VYEzZ+cNJNdUvkmKXQR+3F/q6F9bDxk19etntiys7dNsC4cxmOVQ==",
+  "dgSpecHash": "Twz4viE2UbFn8MTdcX64Tdj9c8bGULkOnShEt7NJZ/seTGVp9R4g81jzs7PCCaO67Z+Wlmws6+itf+8qyJ9GWg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\universityBD.csproj",
+  "projectFilePath": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Fiołko\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Fiołko\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

@@ -24,13 +24,15 @@ namespace universityBD
             Console.WriteLine("Course (chose from existing):");
             int CourseID = Course.SearchToAdd().CourseID;
             Console.WriteLine("SectionID (chose from existing):");
+            var query = from sections in database.Sections where sections.CourseID == CourseID select sections;
+            Section.print(query);
             bool SectionAvailable = false;
             bool run = true;
             int SectionID = 0;
-            var query = from sections in database.Sections select sections;
             while(run)
             {
-                SectionID = Section.SearchToAdd().SectionID;
+                Console.Write("Put section ID here: ");
+                SectionID = int.Parse(Console.ReadLine());
                 query = from sections in database.Sections
                             where sections.SectionID == SectionID
                             select sections;

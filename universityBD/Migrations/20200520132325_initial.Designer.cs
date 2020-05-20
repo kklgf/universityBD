@@ -9,8 +9,8 @@ using universityBD;
 namespace universityBD.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20200515233355_schema")]
-    partial class schema
+    [Migration("20200520132325_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,8 +78,8 @@ namespace universityBD.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Salary")
                         .HasColumnType("INTEGER");
@@ -96,18 +96,13 @@ namespace universityBD.Migrations
 
             modelBuilder.Entity("universityBD.Enrollment", b =>
                 {
-                    b.Property<int>("CourseID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("SectionID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("StudentID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CourseID", "SectionID", "StudentID");
-
-                    b.HasIndex("SectionID");
+                    b.HasKey("SectionID", "StudentID");
 
                     b.HasIndex("StudentID");
 
@@ -198,8 +193,8 @@ namespace universityBD.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Phone")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Phone")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
                         .HasColumnType("TEXT");
@@ -229,12 +224,6 @@ namespace universityBD.Migrations
 
             modelBuilder.Entity("universityBD.Enrollment", b =>
                 {
-                    b.HasOne("universityBD.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("universityBD.Section", "Section")
                         .WithMany()
                         .HasForeignKey("SectionID")
