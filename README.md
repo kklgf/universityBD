@@ -27,6 +27,7 @@
 - Viewing free places on a particular section: function Section.FreePlaces(); [Agata]
 - blocking the course overload (more students than capacity): while adding a new enrollment [Agata]
 - blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes [Agata]
+- Random data generation for whole database [Patryk]
 
 ## Dependencies
 - Faker.Net:
