@@ -28,3 +28,8 @@
 - blocking the course overload (more students than capacity): while adding a new enrollment [Agata]
 - blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes [Agata]
 
+## Dependencies
+- Faker.Net:
+    dotnet add package Faker.Net --version 1.3.77
+- NBuilder:
+    dotnet add package NBuilder --version 6.1.0
