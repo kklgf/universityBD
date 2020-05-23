@@ -1,4 +1,8 @@
-﻿using System;
+using FizzWare.NBuilder;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 
 namespace universityBD
 {
@@ -12,6 +16,7 @@ namespace universityBD
             Console.WriteLine("###############################");
             UniversityContext database = new UniversityContext();
             bool run = true;
+            bool seedUsed = false;
             while (run)
             {
                 Console.WriteLine("\n###############################");
@@ -20,6 +25,9 @@ namespace universityBD
                 Console.WriteLine("2. Add to database");
                 Console.WriteLine("3. See the whole table");
                 Console.WriteLine("4. See a specific view");
+                if (!seedUsed) {
+                    Console.WriteLine("9. Generate data");
+                }
                 Console.WriteLine("0. Close");
                 Console.WriteLine("###############################");
                 Console.Write("Your choice: ");
@@ -43,6 +51,13 @@ namespace universityBD
                         break;
                     case 4:
                         SpecificViews();
+                        break;
+                    case 9:
+                        if (!seedUsed)
+                        {
+                            Seed(database);
+                        }
+                        seedUsed = true;
                         break;
                     case 0:
                         run = false;
@@ -227,6 +242,145 @@ namespace universityBD
                     WrongAction();
                     break;
             }
+        }
+
+        /*public static Course NextCourse(IList<Course> lista)
+        {
+            var selectedC = Pick<Course>.UniqueRandomList(With.Exactly(15).Elements).From(lista);
+            var iter = selectedC.GetEnumerator();
+            foreach (var obj in lista)
+            {
+                iter.MoveNext();
+                yield return iter.Current;
+            }
+        }*/
+
+        static void Seed(UniversityContext context)
+        {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            int quantity = 100;
+            // Generate departments
+            var departments = Builder<Department>.CreateListOfSize(quantity)
+                .All()
+                    .With(d => d.Name = Faker.Company.Name())
+                .Build();
+            foreach (var department in departments)
+            {
+                context.Add(department);
+            }
+            context.SaveChanges();
+
+            // Generate courses
+            var courses = Builder<Course>.CreateListOfSize(quantity)
+                .All()
+                    .With(d => d.Department = Pick<Department>.RandomItemFrom(departments))
+                    .With(d => d.Name = Faker.Company.CatchPhrase())
+                    .With(d => d.ECTS = Faker.RandomNumber.Next(1,8))
+                .Build();
+            foreach (var course in courses)
+            {
+                context.Add(course);
+            }
+            context.SaveChanges();
+
+            // Generate employees
+            var employees = Builder<Employee>.CreateListOfSize(quantity)
+                .All()
+                    .With(d => d.Name = Faker.Name.First())
+                    .With(d => d.Surname = Faker.Name.Last())
+                    .With(d => d.Address = Faker.Address.StreetAddress())
+                    .With(d => d.City = Faker.Address.City())
+                    .With(d => d.Country = Faker.Address.Country())
+                    .With(d => d.Phone = Faker.Phone.Number())
+                    .With(d => d.Email = Faker.Internet.Email())
+                    .With(d => d.Salary = Faker.RandomNumber.Next(2000, 6000))
+                    .With(d => d.Department = Pick<Department>.RandomItemFrom(departments))
+                .Build();
+            foreach (var employee in employees)
+            {
+                context.Add(employee);
+            }
+            context.SaveChanges();
+
+            // Generate students
+            var students = Builder<Student>.CreateListOfSize(quantity)
+                .All()
+                    .With(d => d.Name = Faker.Name.First())
+                    .With(d => d.Surname = Faker.Name.Last())
+                    .With(d => d.Address = Faker.Address.StreetAddress())
+                    .With(d => d.City = Faker.Address.City())
+                    .With(d => d.Country = Faker.Address.Country())
+                    .With(d => d.Phone = Faker.Phone.Number())
+                    .With(d => d.Email = Faker.Internet.Email())
+                    .With(d => d.GraduationYear = Faker.RandomNumber.Next(2010, 2025))
+                .Build();
+            foreach (var student in students)
+            {
+                context.Add(student);
+            }
+            context.SaveChanges();
+
+            // Generate sections
+            var sections = Builder<Section>.CreateListOfSize(quantity)
+                .All()
+                    .With(d => d.Course = Pick<Course>.RandomItemFrom(courses))
+                    .With(d => d.Employee = Pick<Employee>.RandomItemFrom(employees))
+                    .With(d => d.Day = Faker.RandomNumber.Next(1, 5))
+                    .With(d => d.StartTime = Faker.RandomNumber.Next(8, 19).ToString()
+                        + ":" + (Faker.RandomNumber.Next(0, 3)*15).ToString())
+                    .With(d => d.Length = Faker.RandomNumber.Next(1, 4) * 45)
+                    .With(d => d.Capacity = Faker.RandomNumber.Next(1, 4) * 10)
+                .Build();
+            foreach (var section in sections)
+            {
+                context.Add(section);
+            }
+            context.SaveChanges();
+
+            // Generate students grades
+            List<Student> oldStuds = students.Where(s => DateTime.Now.Year - s.GraduationYear > -4).ToList();
+            var allGrades = new List<Grade>();
+            foreach (var s in oldStuds)
+            {
+                var selectedC = Pick<Course>.UniqueRandomList(With.Exactly(15).Elements).From(courses);
+                var iter = new Stack<Course>(selectedC);
+                var grades = Builder<Grade>.CreateListOfSize(Faker.RandomNumber.Next(5, 15))
+                    .All()
+                        .With(d => d.StudentID = s.StudentID)
+                        .With(d => d.CourseID = iter.Pop().CourseID)
+                        .With(d => d.Year = Faker.RandomNumber.Next(1, Math.Min(DateTime.Now.Year - s.GraduationYear + 5, 6)))
+                        .With(d => d.Semester = d.Year * 2 + Faker.RandomNumber.Next(0, 1))
+                        .With(d => d.Score = Faker.RandomNumber.Next(2, 5))
+                    .Build();
+                allGrades.AddRange(grades);
+            }
+
+            foreach (var grade in allGrades)
+            {
+                context.Add(grade);
+            }
+            context.SaveChanges();
+
+            // Generate students enrolments
+            var allEnrolments = new System.Collections.Generic.List<Enrollment>();
+            foreach (var s in students)
+            {
+                var selectedS = Pick<Section>.UniqueRandomList(With.Exactly(15).Elements).From(sections);
+                var iter = new Stack<Section>(selectedS);
+                var enrolments = Builder<Enrollment>.CreateListOfSize(Faker.RandomNumber.Next(5, 15))
+                .All()
+                    .With(d => d.SectionID = iter.Pop().SectionID)
+                    .With(d => d.StudentID = s.StudentID)
+                .Build();
+                allEnrolments.AddRange(enrolments);
+            }
+
+            foreach (var enrolment in allEnrolments)
+            {
+                context.Add(enrolment);
+            }
+            context.SaveChanges();
         }
 
         static void WrongAction()

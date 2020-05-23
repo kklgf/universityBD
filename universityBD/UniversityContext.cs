@@ -31,5 +31,9 @@ namespace universityBD
             });
         }
 
+        public static UniversityContext Create()
+        {
+            return new UniversityContext();
+        }
     }
 }

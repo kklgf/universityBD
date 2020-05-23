@@ -220,7 +220,7 @@ namespace universityBD
                 default:
                     Console.WriteLine("");
                     var foundSection = from sections in database.Sections
-                                        where sections.ProfesorID == employee.EmployeeID
+                                        where sections.EmployeeID == employee.EmployeeID
                                         select sections;
                     foreach (var section in foundSection)
                     {

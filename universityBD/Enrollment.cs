@@ -91,7 +91,7 @@ namespace universityBD
                 var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
                 var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
                 var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
-                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.ProfesorID).FirstOrDefault();
+                var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.EmployeeID).FirstOrDefault();
                 Console.WriteLine(course.Name.PadRight(20) + "| " + employee.Name.PadRight(14)
                     + " " + employee.Surname.PadRight(15) + "| " + student.Name.PadRight(14) + " " + student.Surname.PadRight(15));
             }
