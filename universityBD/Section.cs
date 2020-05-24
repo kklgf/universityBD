@@ -109,6 +109,8 @@ namespace universityBD
                 Console.WriteLine("6. Length");
                 Console.WriteLine("7. Capacity");
                 Console.WriteLine("O. Cancel");
+                Console.WriteLine("###############################");
+                Console.Write("Your choice: ");
                 int action = int.Parse(Console.ReadLine());
                 switch (action)
                 {
@@ -214,6 +216,7 @@ namespace universityBD
             Console.WriteLine("Now choose the Section by inserting it's ID. Write '0' to abort.");
             Console.Write("Your choice: ");
             int id = int.Parse(Console.ReadLine());
+            Console.WriteLine("\nAttendance list on this section:\n");
             switch (id)
             {
                 case 0:

@@ -234,9 +234,9 @@ namespace universityBD
                                 on grades.StudentID equals students.StudentID
                                 where students.StudentID == id
                                 select grades;
-                    Console.WriteLine("\nName".PadRight(16) + "| " + "Surname".PadRight(15) + "| " + "Course Name".PadRight(15) +
+                    Console.WriteLine("\nName".PadRight(16) + "| " + "Surname".PadRight(15) + "| " + "Course Name".PadRight(50) +
                                                 "| " + "SCORE".PadRight(10));
-                    Console.WriteLine("-----------------------------------------------------------------");
+                    Console.WriteLine("-----------------------------------------------------------------------------------------------");
                     foreach (var item in query)
                     {
                         var foundCourse = from courses in database.Courses
@@ -245,7 +245,7 @@ namespace universityBD
                         foreach (var course in foundCourse)
                         {
                             Console.WriteLine(student.Name.PadRight(15) + "| " + student.Surname.PadRight(15)
-                                     + "| " + course.Name.PadRight(15) + "| " + item.Score.ToString().PadRight(10));
+                                     + "| " + course.Name.PadRight(50) + "| " + item.Score.ToString().PadRight(10));
                         }
                     }
                     break;
