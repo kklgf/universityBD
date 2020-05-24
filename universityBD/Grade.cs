@@ -54,13 +54,15 @@ namespace universityBD
         public static void print(IQueryable<Grade> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("Course".PadRight(15) + "| " + "Student".PadRight(30) + "| " + "Year".PadRight(6) + "| " + "Semester".PadRight(10) + "| " + "Score".PadRight(7));
-            Console.WriteLine("----------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("Course".PadRight(50) + "| " + "Student".PadRight(30) + "| " + "Year".PadRight(6) + "| " + "Semester".PadRight(10) + "| " + "Score".PadRight(7));
+            Console.WriteLine("---------------------------------------------------------------------" +
+                "---------------------------------------------");
             foreach (var item in query)
             {
                 var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
-                Console.WriteLine(course.Name.PadRight(15) + "| " + student.Name.PadRight(14) + " " + student.Surname.PadRight(15) + "| "
+                Console.WriteLine(course.Name.PadRight(50) + "| " + student.Name.PadRight(14) + " " + student.Surname.PadRight(15) + "| "
                               + item.Year.ToString().PadRight(6) + "| " + item.Semester.ToString().PadRight(10) + "| " + item.Score.ToString().PadRight(7));
             }
         }

@@ -77,15 +77,16 @@ namespace universityBD
         public static void print(IQueryable<Section> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Course Name".PadRight(20) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Course Name".PadRight(50) + "| " + "Profesor".PadRight(30) + "| " + "Day".PadRight(10)
                 + "| " + "Start Time".PadRight(11) + "| " + "Length".PadRight(7) + "| " + "Capacity".PadRight(10) + "| " + "Free Places".PadRight(5));
-            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------------------------------------" +
+                "------------------------------------------------------------------");
             foreach (var item in query)
             {
                 int freePlaces = item.Capacity - CountStudentsOnSection(item);
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.EmployeeID).FirstOrDefault();
-                Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(20) + "| " + employee.Name.PadRight(14) + " " +
+                Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(50) + "| " + employee.Name.PadRight(14) + " " +
                     employee.Surname.PadRight(15) + "| " + WeekDays.Parse(item.Day).PadRight(10) + "| " + item.StartTime.PadRight(11) + "| "
                     + item.Length.ToString().PadRight(7) + "| " + item.Capacity.ToString().PadRight(10) + "| " + freePlaces.ToString().PadRight(5));
             }

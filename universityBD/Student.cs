@@ -142,16 +142,16 @@ namespace universityBD
 
         public static void print(IQueryable<Student> query)
         {
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + "| " + "Surname".PadRight(15) + "| " + "Address".PadRight(20) +
-                "| " + "City".PadRight(20) + "| " + "Country".PadRight(10) + "| " + "Phone".PadRight(20) + "| " + "Email".PadRight(20) +
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(15) + "| " + "Surname".PadRight(15) + "| " + "Address".PadRight(30) +
+                "| " + "City".PadRight(20) + "| " + "Country".PadRight(45) + "| " + "Phone".PadRight(25) + "| " + "Email".PadRight(40) +
                 "| " + "Graduation Year".PadRight(20));
-            Console.WriteLine("--------------------------------------------------------------------------------" +
-                "------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------" +
+                "-----------------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 Console.WriteLine(item.StudentID.ToString().PadRight(4) + "| " + item.Name.PadRight(15) + "| " + item.Surname.PadRight(15)
-                     + "| " + item.Address.PadRight(20) + "| " + item.City.PadRight(20) + "| " + item.Country.PadRight(10) + "| " + item.Phone.PadRight(20)
-                      + "| " + item.Email.PadRight(20) + "| " + item.GraduationYear.ToString().PadRight(20));
+                     + "| " + item.Address.PadRight(30) + "| " + item.City.PadRight(20) + "| " + item.Country.PadRight(45) + "| " + item.Phone.PadRight(25)
+                      + "| " + item.Email.PadRight(40) + "| " + item.GraduationYear.ToString().PadRight(20));
             }
         }
 

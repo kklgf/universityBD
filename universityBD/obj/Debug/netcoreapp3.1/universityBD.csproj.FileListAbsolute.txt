@@ -131,3 +131,26 @@ C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\bin\Debug\netcoreap
 C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\Patryk Siwek\source\repos\universityBD\universityBD\obj\Debug\netcoreapp3.1\universityBD.csproj.CoreCompileInputs.cache
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\Faker.Net.Core.3.1.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\FizzWare.NBuilder.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\de-DE\Faker.Net.Core.3.1.resources.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Fiołko\Source\Repos\universityBD\universityBD\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll

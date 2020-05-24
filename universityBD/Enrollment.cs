@@ -84,15 +84,16 @@ namespace universityBD
         public static void print(IQueryable<Enrollment> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("Course Name".PadRight(20) + "| " + "Profesor".PadRight(30) + "| " + "Student".PadRight(30));
-            Console.WriteLine("--------------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("Course Name".PadRight(50) + "| " + "Profesor".PadRight(30) + "| " + "Student".PadRight(30));
+            Console.WriteLine("------------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 var student = (Student)database.Students.Where(e => e.StudentID == item.StudentID).FirstOrDefault();
                 var section = (Section)database.Sections.Where(e => e.SectionID == item.SectionID).FirstOrDefault();
                 var course = (Course)database.Courses.Where(e => e.CourseID == section.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == section.EmployeeID).FirstOrDefault();
-                Console.WriteLine(course.Name.PadRight(20) + "| " + employee.Name.PadRight(14)
+                Console.WriteLine(course.Name.PadRight(50) + "| " + employee.Name.PadRight(14)
                     + " " + employee.Surname.PadRight(15) + "| " + student.Name.PadRight(14) + " " + student.Surname.PadRight(15));
             }
         }

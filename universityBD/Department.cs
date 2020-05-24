@@ -33,11 +33,11 @@ namespace universityBD
 
         public static void print(IQueryable<Department> query)
         {
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(20));
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(30));
+            Console.WriteLine("----------------------------------------");
             foreach (var item in query)
             {
-                Console.WriteLine(item.DepartmentID.ToString().PadRight(4) + "| " + item.Name.PadRight(20));
+                Console.WriteLine(item.DepartmentID.ToString().PadRight(4) + "| " + item.Name.PadRight(30));
             }
         }
 

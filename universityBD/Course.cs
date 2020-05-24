@@ -52,13 +52,13 @@ namespace universityBD
         public static void print(IQueryable<Course> query)
         {
             UniversityContext database = new UniversityContext();
-            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(20) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(15));
-            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("\nID".PadRight(5) + "| " + "Name".PadRight(50) + "| " + "ECTS".PadRight(5) + "| " + "Department Name".PadRight(30));
+            Console.WriteLine("------------------------------------------------------------------------------------------------------");
             foreach (var item in query)
             {
                 var department = (Department)database.Departments.Where(e => e.DepartmentID == item.DepartmentID).FirstOrDefault();
-                Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(20) + "| " + item.ECTS.ToString().PadRight(5) +
-                    "| " + department.Name.PadRight(15));
+                Console.WriteLine(item.CourseID.ToString().PadRight(4) + "| " + item.Name.PadRight(50) + "| " + item.ECTS.ToString().PadRight(5) +
+                    "| " + department.Name.PadRight(30));
             }
         }
 
