@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj": {}
+    "C:\\Users\\Patryk Siwek\\source\\repos\\universityBD\\universityBD\\universityBD.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj": {
+    "C:\\Users\\Patryk Siwek\\source\\repos\\universityBD\\universityBD\\universityBD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj",
+        "projectUniqueName": "C:\\Users\\Patryk Siwek\\source\\repos\\universityBD\\universityBD\\universityBD.csproj",
         "projectName": "universityBD",
-        "projectPath": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj",
-        "packagesPath": "C:\\Users\\Fiołko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\obj\\",
+        "projectPath": "C:\\Users\\Patryk Siwek\\source\\repos\\universityBD\\universityBD\\universityBD.csproj",
+        "packagesPath": "C:\\Users\\Patryk Siwek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Patryk Siwek\\source\\repos\\universityBD\\universityBD\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Fiołko\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Patryk Siwek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
