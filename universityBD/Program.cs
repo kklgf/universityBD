@@ -248,7 +248,7 @@ namespace universityBD
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            int quantity = 100;
+            int quantity = 33;
             // Generate departments
             var depNames = DepartmentNames.GetListOfNames();
             int depQ = Math.Min(quantity, depNames.Count());
@@ -285,7 +285,8 @@ namespace universityBD
             context.SaveChanges();*/
 
             int coursesPerDepartment = 10;
-            var courses = Builder<Course>.CreateListOfSize(Faker.RandomNumber.Next((int)(coursesPerDepartment * 0.8), (int)(coursesPerDepartment * 1.2)))
+            int quantOfCourses = departments.Count() * Faker.RandomNumber.Next((int)(coursesPerDepartment * 0.8), (int)(coursesPerDepartment * 1.2));
+            var courses = Builder<Course>.CreateListOfSize(quantOfCourses)
                 .All()
                     .With(d => d.Department = Pick<Department>.RandomItemFrom(departments))
                     .With(d => d.Name = Faker.Company.CatchPhrase())
@@ -323,8 +324,9 @@ namespace universityBD
             }
             context.SaveChanges();*/
 
-            int employeesPerDepartment = 10;
-            var employees = Builder<Employee>.CreateListOfSize(Faker.RandomNumber.Next((int)(employeesPerDepartment * 0.8), (int)(employeesPerDepartment * 1.2)))
+            int employeesPerDepartment = 9;
+            int quantOfEmployees = departments.Count() * Faker.RandomNumber.Next((int)(employeesPerDepartment * 0.8), (int)(employeesPerDepartment * 1.2));
+            var employees = Builder<Employee>.CreateListOfSize(quantOfEmployees)
                 .All()
                     .With(d => d.Name = Faker.Name.First())
                     .With(d => d.Surname = Faker.Name.Last())
@@ -343,7 +345,9 @@ namespace universityBD
             context.SaveChanges();
 
             // Generate students
-            var students = Builder<Student>.CreateListOfSize(quantity)
+            int studentsPerDepartment = 100;
+            int quantOfStudents = departments.Count() * Faker.RandomNumber.Next((int)(studentsPerDepartment * 0.8), (int)(studentsPerDepartment * 1.2));
+            var students = Builder<Student>.CreateListOfSize(quantOfStudents)
                 .All()
                     .With(d => d.Name = Faker.Name.First())
                     .With(d => d.Surname = Faker.Name.Last())
@@ -361,38 +365,40 @@ namespace universityBD
             context.SaveChanges();
 
             // Generate sections
-           /* var allSections = new List<Section>();
-            foreach (var cou in courses)
-            {
-                int sectionsPerCourse = Faker.RandomNumber.Next(3, 10);
-                int employeesPerCourse = Faker.RandomNumber.Next(1, 4);
-                var selectedE = Pick<Employee>.UniqueRandomList(With.Exactly(employeesPerCourse).Elements).From(employees);
-                var sections = Builder<Section>.CreateListOfSize(sectionsPerCourse)
-                .All()
-                    .With(d => d.Course = cou)
-                    .With(d => d.Employee = selectedE[Faker.RandomNumber.Next(0, selectedE.Count())])
-                    .With(d => d.Day = Faker.RandomNumber.Next(1, 5))
-                    .With(d => d.StartTime = Faker.RandomNumber.Next(8, 19).ToString()
-                        + ":" + (Faker.RandomNumber.Next(0, 3) * 15).ToString())
-                    .With(d => d.Length = Faker.RandomNumber.Next(1, 4) * 45)
-                    .With(d => d.Capacity = Faker.RandomNumber.Next(1, 4) * 10)
-                .Build();
-                allSections.AddRange(sections);
-            }
+            /* var allSections = new List<Section>();
+             foreach (var cou in courses)
+             {
+                 int sectionsPerCourse = Faker.RandomNumber.Next(3, 10);
+                 int employeesPerCourse = Faker.RandomNumber.Next(1, 4);
+                 var selectedE = Pick<Employee>.UniqueRandomList(With.Exactly(employeesPerCourse).Elements).From(employees);
+                 var sections = Builder<Section>.CreateListOfSize(sectionsPerCourse)
+                 .All()
+                     .With(d => d.Course = cou)
+                     .With(d => d.Employee = selectedE[Faker.RandomNumber.Next(0, selectedE.Count())])
+                     .With(d => d.Day = Faker.RandomNumber.Next(1, 5))
+                     .With(d => d.StartTime = Faker.RandomNumber.Next(8, 19).ToString()
+                         + ":" + (Faker.RandomNumber.Next(0, 3) * 15).ToString())
+                     .With(d => d.Length = Faker.RandomNumber.Next(1, 4) * 45)
+                     .With(d => d.Capacity = Faker.RandomNumber.Next(1, 4) * 10)
+                 .Build();
+                 allSections.AddRange(sections);
+             }
 
-            foreach (var section in allSections)
-            {
-                context.Add(section);
-            }
-            context.SaveChanges();*/
+             foreach (var section in allSections)
+             {
+                 context.Add(section);
+             }
+             context.SaveChanges();*/
 
-            var sections = Builder<Section>.CreateListOfSize(quantity)
+            int sectionsPerCourse = 7;
+            int quantOfSections = courses.Count() * Faker.RandomNumber.Next((int)(sectionsPerCourse * 0.6), (int)(sectionsPerCourse * 1.3));
+            var sections = Builder<Section>.CreateListOfSize(quantOfSections)
                 .All()
                     .With(d => d.Course = Pick<Course>.RandomItemFrom(courses))
                     .With(d => d.Employee = Pick<Employee>.RandomItemFrom(employees))
                     .With(d => d.Day = Faker.RandomNumber.Next(1, 5))
-                    .With(d => d.StartTime = Faker.RandomNumber.Next(8, 19).ToString()
-                        + ":" + (Faker.RandomNumber.Next(0, 3)*15).ToString())
+                    .With(d => d.StartTime = Faker.RandomNumber.Next(8, 19).ToString("00")
+                        + ":" + (Faker.RandomNumber.Next(0, 3)*15).ToString("00"))
                     .With(d => d.Length = Faker.RandomNumber.Next(1, 4) * 45)
                     .With(d => d.Capacity = Faker.RandomNumber.Next(1, 4) * 10)
                 .Build();
@@ -444,14 +450,26 @@ namespace universityBD
 
             foreach (var enrolment in allEnrolments)
             {
-                var section = (Section)context.Sections.Where(e => e.SectionID == enrolment.SectionID).FirstOrDefault();
+                /*var section = (Section)context.Sections.Where(e => e.SectionID == enrolment.SectionID).FirstOrDefault();
                 int freePlaces = section.Capacity - Section.CountStudsOnTmpDB(section, context);
                 if (freePlaces > 0)
-                {
+                {*/
                     context.Add(enrolment);
-                    context.SaveChanges();
+                /*  context.SaveChanges();
+                }*/
+            }
+            context.SaveChanges();
+
+            // Correction
+            foreach (var section in sections)
+            {
+                int freePlaces = section.Capacity - Section.CountStudsOnTmpDB(section, context);
+                if (freePlaces < 0)
+                {
+                    section.Capacity -= (freePlaces + freePlaces % 10);
                 }
             }
+            context.SaveChanges();
         }
 
         static void WrongAction()
