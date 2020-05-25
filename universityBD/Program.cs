@@ -444,9 +444,14 @@ namespace universityBD
 
             foreach (var enrolment in allEnrolments)
             {
-                context.Add(enrolment);
+                var section = (Section)context.Sections.Where(e => e.SectionID == enrolment.SectionID).FirstOrDefault();
+                int freePlaces = section.Capacity - Section.CountStudsOnTmpDB(section, context);
+                if (freePlaces > 0)
+                {
+                    context.Add(enrolment);
+                    context.SaveChanges();
+                }
             }
-            context.SaveChanges();
         }
 
         static void WrongAction()

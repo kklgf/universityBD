@@ -196,6 +196,15 @@ namespace universityBD
             return result;
         }
 
+        public static int CountStudsOnTmpDB(Section section, UniversityContext context)
+        {
+            int result = 0;
+            var foundEnrollments = from enrollments in context.Enrollments
+                                   where enrollments.SectionID == section.SectionID
+                                   select enrollments;
+            foreach (var enrollment in foundEnrollments) { result++; }
+            return result;
+        }
 
         public static int CountStudentsOnSection(Section section)
         {
