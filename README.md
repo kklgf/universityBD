@@ -44,7 +44,7 @@
 ## Entire code breakdown
 ### File: Program.cs
 #### Class: Program
-> class responsible for interaction with user
+> class responsible for interaction with user  
 > catches the answers and switches appropriate functions depending on what user decides to do
 ##### static void Main(string[] args)
 ##### static void Search(UniversityContext database)
@@ -56,7 +56,7 @@
 
 ### File: Course.cs
 #### Class: Course
-> object class being mapped into the database table
+> object class being mapped into the database table  
 [Key]\
 public int CourseID { get; set; }\
 [ForeignKey("Department")]\
@@ -180,6 +180,7 @@ public int GraduationYear { get; set; }
 
 ### File: UniversityContext.cs
 #### Class: UniversityContext : DbContext
+> class inheritating from DbContext responsible for creating a connection with a database and mapping classes into entities  
 public DbSet\<Course> Courses { get; set; }\
 public DbSet\<Department> Departments { get; set; }\
 public DbSet\<Employee> Employees { get; set; }\
@@ -189,9 +190,11 @@ public DbSet\<Section> Sections { get; set; }\
 public DbSet\<Student> Students { get; set; }\
 
 ### File: DepartmentNames.cs
-#### Class: DepartmentNames --- file used for data generation to make department names sound less awkward than the ones generated automatically
+#### Class: DepartmentNames
+> file used for data generation to make department names sound less awkward than the ones generated automatically
 ##### public static List\<String> GetListOfNames()
 
 ### File: WeekDays.cs
-#### Class: WeekDays --- class used for parsing numbers stored in the database into the string values like 'Monday' to be displayed for the user
+#### Class: WeekDays
+> class used for parsing numbers stored in the database into the string values like 'Monday' to be displayed for the user
 ##### public static String Parse(int number)
