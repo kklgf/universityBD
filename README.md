@@ -9,7 +9,7 @@
 
 ##### Projekt:
   - Temat: Baza danych dla uczelni.
-  - Serwer: lokalny serwer SQL
+  - Serwer: wykorzystanie SQLite -- baza danych jest zintegrowana z aplikacją, która ma do niej bezpośredni dostęp (serwer nie jest potrzebny)
   - Technologie: .Net i Entity Framework
   - Link: https://github.com/kklgf/universityBD
 
@@ -28,9 +28,12 @@
 - Viewing the ECTS points of a particular student: function Student.StudentsECTS(); [Agata]
 - Viewing the "attendance list" (list of students during at the particular section): function Section.AttendanceList(); [Agata]
 - Viewing free places on a particular section: function Section.FreePlaces(); [Agata]
-- blocking the course overload (more students than capacity): while adding a new enrollment [Agata]
-- blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes [Agata]
 - Random data generation for whole database [Patryk]
+
+## Data corectness insurance
+- blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes
+- blocking the course overload (more students than capacity): while adding a new enrollment
+- ensuring there is an existing row (in another table) while adding an attribute -- you need to choose from existing
 
 ## Dependencies
 - Faker.Net:
