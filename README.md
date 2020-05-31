@@ -44,6 +44,8 @@
 ## Entire code breakdown
 ### File: Program.cs
 #### Class: Program
+#class responsible for interaction with user
+catches the answers and switches appropriate functions depending on what user decides to do
 ##### static void Main(string[] args)
 ##### static void Search(UniversityContext database)
 ##### static void SeeTable(UniversityContext database)
@@ -51,8 +53,10 @@
 ##### static void SpecificViews()
 ##### static void Seed(UniversityContext context)
 ##### static void WrongAction()
+
 ### File: Course.cs
 #### Class: Course
+#object class being mapped into the database table
 \[Key]\
 public int CourseID { get; set; }\
 \[ForeignKey("Department")]\
@@ -61,12 +65,16 @@ public Department Department { get; set; }\
 public String Name { get; set; }\
 public int ECTS { get; set; }\
 ##### public static Course NewCourse()
+constructor
 ##### public static void SeeAll()
+being called from program main function prepares the view of the whole COURSES table in the database
 ##### public static void print(IQueryable\<Course> query)
+being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
 ##### public static Course SearchToAdd()
 ### File: Department.cs
 #### Class: Department
+#object class being mapped into the database table
 public int DepartmentID { get; set; }\
 public String Name { get; set; }\
 ##### public static Department NewDepartment()
@@ -76,6 +84,7 @@ public String Name { get; set; }\
 ##### public static Department SearchToAdd()
 ### File: Employee.cs
 #### Class: Employee
+#object class being mapped into the database table
 public int EmployeeID { get; set; }\
 public String Name { get; set; }\
 public String Surname { get; set; }\
