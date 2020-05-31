@@ -43,20 +43,17 @@
 
 ## Entire code breakdown
 ### File: Program.cs
-#### Class: Program
-#class responsible for interaction with user
-catches the answers and switches appropriate functions depending on what user decides to do
-##### static void Main(string[] args)
-##### static void Search(UniversityContext database)
-##### static void SeeTable(UniversityContext database)
-##### static object Add()
-##### static void SpecificViews()
-##### static void Seed(UniversityContext context)
-##### static void WrongAction()
+#### Class: Program --- class responsible for interaction with user: catches the answers and switches appropriate functions depending on what user decides to do
+#### static void Main(string[] args)
+#### static void Search(UniversityContext database)
+#### static void SeeTable(UniversityContext database)
+#### static object Add()
+#### static void SpecificViews()
+#### static void Seed(UniversityContext context)
+#### static void WrongAction()
 
 ### File: Course.cs
-#### Class: Course
-#object class being mapped into the database table
+#### Class: Course --- object class being mapped into the database table
 \[Key]\
 public int CourseID { get; set; }\
 \[ForeignKey("Department")]\
@@ -64,17 +61,14 @@ public int DepartmentID { get; set; }\
 public Department Department { get; set; }\
 public String Name { get; set; }\
 public int ECTS { get; set; }\
-##### public static Course NewCourse()
-constructor
-##### public static void SeeAll()
-being called from program main function prepares the view of the whole COURSES table in the database
-##### public static void print(IQueryable\<Course> query)
-being called from SeeAll() or Search() function displays the result of the query
+##### public static Course NewCourse() --- constructor
+##### public static void SeeAll() --- being called from program main function prepares the view of the whole COURSES table in the database
+##### public static void print(IQueryable\<Course> query) --- being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
 ##### public static Course SearchToAdd()
+
 ### File: Department.cs
-#### Class: Department
-#object class being mapped into the database table
+#### Class: Department --- object class being mapped into the database table
 public int DepartmentID { get; set; }\
 public String Name { get; set; }\
 ##### public static Department NewDepartment()
@@ -82,9 +76,9 @@ public String Name { get; set; }\
 ##### public static void print(IQueryable\<Department> query)
 ##### public static void Search()
 ##### public static Department SearchToAdd()
+
 ### File: Employee.cs
-#### Class: Employee
-#object class being mapped into the database table
+#### Class: Employee --- object class being mapped into the database table
 public int EmployeeID { get; set; }\
 public String Name { get; set; }\
 public String Surname { get; set; }\
@@ -103,6 +97,7 @@ public Department Department { get; set; }\
 ##### public static void Search()
 ##### public static Employee SearchToAdd()
 ##### public static void EmployeesCourses()
+
 ### File: Enrollment.cs
 #### Class: Enrollment
 \[ForeignKey("Section")]\
@@ -116,6 +111,7 @@ public Student Student { get; set; }\
 ##### public static void print(IQueryable\<Enrollment> query)
 ##### public static void Search()
 ##### public static Enrollment SearchToAdd()
+
 ### File: Grade.cs
 #### Class: Grade
 \[ForeignKey("Course")]\
@@ -132,6 +128,7 @@ public int Score { get; set; }\
 ##### public static void print(IQueryable\<Grade> query)
 ##### public static void Search()
 ##### public static Grade SearchToAdd()
+
 ### File: Section.cs
 #### Class: Section
 public int SectionID { get; set; }\
@@ -154,6 +151,7 @@ public int Capacity { get; set; }\
 ##### public static int CountStudentsOnSection(Section section)
 ##### public static void AttendanceList()
 ##### public static void FreePlaces()
+
 ### File: Student.cs
 #### Class: Student
 public int StudentID { get; set; }\
@@ -173,6 +171,7 @@ public int GraduationYear { get; set; }
 ##### public static bool HasClassesAtTheTime(int studentID, Section section)
 ##### public static void StudentsGrades()
 ##### public static void StudentsECTS()
+
 ### File: UniversityContext.cs
 #### Class: UniversityContext : DbContext
 public DbSet\<Course> Courses { get; set; }\
@@ -182,9 +181,11 @@ public DbSet\<Enrollment> Enrollments { get; set; }\
 public DbSet\<Grade> Grades { get; set; }\
 public DbSet\<Section> Sections { get; set; }\
 public DbSet\<Student> Students { get; set; }\
+
 ### File: DepartmentNames.cs
-#### Class: DepartmentNames
+#### Class: DepartmentNames --- file used for data generation to make department names sound less awkward than the ones generated automatically
 ##### public static List\<String> GetListOfNames()
+
 ### File: WeekDays.cs
-#### Class: WeekDays
+#### Class: WeekDays --- class used for parsing numbers stored in the database into the string values like 'Monday' to be displayed for the user
 ##### public static String Parse(int number)
