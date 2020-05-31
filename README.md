@@ -53,10 +53,11 @@
 ##### static void SpecificViews()
 ##### static void Seed(UniversityContext context)
 ##### static void WrongAction()
-
+---------------------------------------------------
 ### File: Course.cs
 #### Class: Course
 > object class being mapped into the database table  
+
 [Key]\
 public int CourseID { get; set; }\
 [ForeignKey("Department")]\
@@ -65,16 +66,21 @@ public Department Department { get; set; }\
 public String Name { get; set; }\
 public int ECTS { get; set; }\
 ##### public static Course NewCourse()
-> constructor
+> constructor: to construct a new course, the existence of any Department row is required
 ##### public static void SeeAll()
-> being called from program main function prepares the view of the whole COURSES table in the database
+> being called from program main function prepares the view of the whole courses table in the database
 ##### public static void print(IQueryable\<Course> query)
 > being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
+> responsible for searching in the courses table
 ##### public static Course SearchToAdd()
+> used for searching while adding a new row into the table
 
+---------------------------------------------------
 ### File: Department.cs
-#### Class: Department --- object class being mapped into the database table
+#### Class: Department
+> object class being mapped into the database table
+
 public int DepartmentID { get; set; }\
 public String Name { get; set; }\
 ##### public static Department NewDepartment()
@@ -82,9 +88,11 @@ public String Name { get; set; }\
 ##### public static void print(IQueryable\<Department> query)
 ##### public static void Search()
 ##### public static Department SearchToAdd()
-
+---------------------------------------------------
 ### File: Employee.cs
-#### Class: Employee --- object class being mapped into the database table
+#### Class: Employee
+> object class being mapped into the database table
+
 public int EmployeeID { get; set; }\
 public String Name { get; set; }\
 public String Surname { get; set; }\
@@ -100,12 +108,17 @@ public Department Department { get; set; }\
 ##### public static void SeeAll()
 ##### public static void print(IQueryable\<Employee> query)
 ##### public static Employee NewEmployee()
+> constructor: to construct a new Employee an existence of any Department row is required
 ##### public static void Search()
 ##### public static Employee SearchToAdd()
 ##### public static void EmployeesCourses()
-
+---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
+> object class being mapped into the database table
+> enrollment is a connection between student and a section (existence of both are required to create a new enrollment)
+> there need to be free places on a section to enroll a student
+
 \[ForeignKey("Section")]\
 public int SectionID { get; set; }\
 public Section Section { get; set; }\
@@ -117,9 +130,12 @@ public Student Student { get; set; }\
 ##### public static void print(IQueryable\<Enrollment> query)
 ##### public static void Search()
 ##### public static Enrollment SearchToAdd()
-
+---------------------------------------------------
 ### File: Grade.cs
 #### Class: Grade
+> object class being mapped into the database table
+> to create a new grade, the existence of any row in Students and Courses table is required
+
 \[ForeignKey("Course")]\
 public int CourseID { get; set; }\
 public Course Course { get; set; }\
@@ -134,9 +150,13 @@ public int Score { get; set; }\
 ##### public static void print(IQueryable\<Grade> query)
 ##### public static void Search()
 ##### public static Grade SearchToAdd()
-
+---------------------------------------------------
 ### File: Section.cs
 #### Class: Section
+> object class being mapped into the database table\
+> section is a class given by a particular professor\
+> constructing a section creates a connection between an employee (professor) and a course, so both of these must have existed before to create a new section
+
 public int SectionID { get; set; }\
 \[ForeignKey("Course")]\
 public int CourseID { get; set; }\
@@ -157,9 +177,14 @@ public int Capacity { get; set; }\
 ##### public static int CountStudentsOnSection(Section section)
 ##### public static void AttendanceList()
 ##### public static void FreePlaces()
+> displays the number of free places available for section
+> used while enrolling a student (freePlaces>0 is a required condition to make an enrollment)
 
+---------------------------------------------------
 ### File: Student.cs
 #### Class: Student
+> object class being mapped into the database table
+
 public int StudentID { get; set; }\
 public String Name { get; set; }\
 public String Surname { get; set; }\
@@ -175,12 +200,15 @@ public int GraduationYear { get; set; }
 ##### public static void SeeAll()
 ##### public static Student SearchToAdd()
 ##### public static bool HasClassesAtTheTime(int studentID, Section section)
+> gives the answer whether student can enroll for a Section section or has another classes at the time: then enrollment is not available
 ##### public static void StudentsGrades()
+> resonsible for creating a view with grades of a student
 ##### public static void StudentsECTS()
-
+---------------------------------------------------
 ### File: UniversityContext.cs
 #### Class: UniversityContext : DbContext
-> class inheritating from DbContext responsible for creating a connection with a database and mapping classes into entities  
+> class inheritating from DbContext responsible for creating a connection with a database and mapping classes into entities
+
 public DbSet\<Course> Courses { get; set; }\
 public DbSet\<Department> Departments { get; set; }\
 public DbSet\<Employee> Employees { get; set; }\
@@ -188,12 +216,12 @@ public DbSet\<Enrollment> Enrollments { get; set; }\
 public DbSet\<Grade> Grades { get; set; }\
 public DbSet\<Section> Sections { get; set; }\
 public DbSet\<Student> Students { get; set; }\
-
+---------------------------------------------------
 ### File: DepartmentNames.cs
 #### Class: DepartmentNames
 > file used for data generation to make department names sound less awkward than the ones generated automatically
 ##### public static List\<String> GetListOfNames()
-
+---------------------------------------------------
 ### File: WeekDays.cs
 #### Class: WeekDays
 > class used for parsing numbers stored in the database into the string values like 'Monday' to be displayed for the user
