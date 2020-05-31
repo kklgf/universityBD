@@ -43,17 +43,19 @@
 
 ## Entire code breakdown
 ### File: Program.cs
-#### Class: Program --- class responsible for interaction with user: catches the answers and switches appropriate functions depending on what user decides to do
-#### static void Main(string[] args)
-#### static void Search(UniversityContext database)
-#### static void SeeTable(UniversityContext database)
-#### static object Add()
-#### static void SpecificViews()
-#### static void Seed(UniversityContext context)
-#### static void WrongAction()
+#### Class: Program
+> class responsible for interaction with user: catches the answers and switches appropriate functions depending on what user decides to do
+##### static void Main(string[] args)
+##### static void Search(UniversityContext database)
+##### static void SeeTable(UniversityContext database)
+##### static object Add()
+##### static void SpecificViews()
+##### static void Seed(UniversityContext context)
+##### static void WrongAction()
 
 ### File: Course.cs
-#### Class: Course --- object class being mapped into the database table
+#### Class: Course
+> object class being mapped into the database table
 \[Key]\
 public int CourseID { get; set; }\
 \[ForeignKey("Department")]\
