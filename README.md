@@ -17,7 +17,7 @@
 ![Database schema](universityBD.jpg)
 
 ## User guide
-![Available user options](user_options.jpg)
+![Available user options](user_options.png)
 
 ## Features
 - Database schema implementation and creation [Patryk]
