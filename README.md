@@ -216,6 +216,7 @@ public DbSet\<Enrollment> Enrollments { get; set; }\
 public DbSet\<Grade> Grades { get; set; }\
 public DbSet\<Section> Sections { get; set; }\
 public DbSet\<Student> Students { get; set; }\
+
 ---------------------------------------------------
 ### File: DepartmentNames.cs
 #### Class: DepartmentNames
