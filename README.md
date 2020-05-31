@@ -16,6 +16,9 @@
 ## Current database schema
 ![Database schema](universityBD.jpg)
 
+## User guide
+![Available user options](user_options.jpg)
+
 ## Features
 - Database schema implementation and creation [Patryk]
 - Inteligent adding of new entities from terminal [Patryk]
