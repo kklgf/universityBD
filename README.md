@@ -26,7 +26,7 @@
 - Viewing the grades of a particular student: function Student.StudentGrades(); [Agata]
 - Viewing the courses of a particular employee: function Employee.EmployeesCourses(); [Agata]
 - Viewing the ECTS points of a particular student: function Student.StudentsECTS(); [Agata]
-- Viewing the "attendance list" (list of students during at the particular section): function Section.AttendanceList(); [Agata]
+- Viewing the "attendance list" (list of students at the particular section): function Section.AttendanceList(); [Agata]
 - Viewing free places on a particular section: function Section.FreePlaces(); [Agata]
 - Random data generation for whole database [Patryk]
 
@@ -47,12 +47,19 @@
 > class responsible for interaction with user  
 > catches the answers and switches appropriate functions depending on what user decides to do
 ##### static void Main(string[] args)
+> displaying main menu right after the start of an application
 ##### static void Search(UniversityContext database)
+> choice of a table and redirection into the matching function in the chosen class [example: Student.Search()]
 ##### static void SeeTable(UniversityContext database)
+> choice of a table and redirection
 ##### static object Add()
+> choice of a table and redirection
 ##### static void SpecificViews()
+> choice of a view (out of 5 available) and redirection into the appropriate class with the function implementation
 ##### static void Seed(UniversityContext context)
+> data generation using Faker
 ##### static void WrongAction()
+> informing user about chosing incorrect value while deciding about actions
 ---------------------------------------------------
 ### File: Course.cs
 #### Class: Course
@@ -66,15 +73,15 @@ public Department Department { get; set; }\
 public String Name { get; set; }\
 public int ECTS { get; set; }\
 ##### public static Course NewCourse()
-> constructor: to construct a new course, the existence of any Department row is required
+> constructor: to construct a new course, the existence of any Department row is required and specification of other course properties
 ##### public static void SeeAll()
 > being called from program main function prepares the view of the whole courses table in the database
 ##### public static void print(IQueryable\<Course> query)
 > being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
-> responsible for searching in the courses table
+> responsible for searching in the courses table --- requires specification of a value by which user decides to search in the database
 ##### public static Course SearchToAdd()
-> used for searching while adding a new row into the table
+> used for searching while adding a new row into a different table
 
 ---------------------------------------------------
 ### File: Department.cs
@@ -84,10 +91,15 @@ public int ECTS { get; set; }\
 public int DepartmentID { get; set; }\
 public String Name { get; set; }\
 ##### public static Department NewDepartment()
+> constructor: requires specification of the new department name
 ##### public static void SeeAll()
+> being call from program main function prepares the view of the whole departments table in the database
 ##### public static void print(IQueryable\<Department> query)
+> being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
+> responsible for searching in the department table --- requires specification of department name of value
 ##### public static Department SearchToAdd()
+> used for searching while adding a new row into a different table
 ---------------------------------------------------
 ### File: Employee.cs
 #### Class: Employee
@@ -106,18 +118,22 @@ public int Salary { get; set; }\
 public int DepartmentID { get; set; }\
 public Department Department { get; set; }\
 ##### public static void SeeAll()
+> being called from program main function prepares the view of the whole employees table in the database
 ##### public static void print(IQueryable\<Employee> query)
+> displays the result of the query from SeeAll() or Search()
 ##### public static Employee NewEmployee()
-> constructor: to construct a new Employee an existence of any Department row is required
+> constructor: to construct a new Employee an existence of any Department row is required (choice from already existing ones) and specification of other class properties
 ##### public static void Search()
+> responsible for searching in the employee table --- requires specification of a known value
 ##### public static Employee SearchToAdd()
+> used for seaching while adding a new row into a different table
 ##### public static void EmployeesCourses()
 ---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
 > object class being mapped into the database table
 > enrollment is a connection between student and a section (existence of both are required to create a new enrollment)
-> there need to be free places on a section to enroll a student
+> the class does not have a key itself, each object of this class is identified by a combination of a SectionID and a StudentID as foreign keys
 
 \[ForeignKey("Section")]\
 public int SectionID { get; set; }\
@@ -126,10 +142,17 @@ public Section Section { get; set; }\
 public int StudentID { get; set; }\
 public Student Student { get; set; }\
 ##### public static Enrollment NewEnrollment()
+> creating a new enrollment: specifying the class properties by choice from already existing ones
+> 1: choice of a section: for a successful enrollment any free places at the section is required --- comparing section capacity with Section.CountStudentsOnSection(section)
+> 2. choice of a student: student can't have any other classes at the time of the new section (use of Student.HasClassesAtTheTime(studentID, section))
 ##### public static void SeeAll()
+> prepares the view of the whole enrollments table in the database
 ##### public static void print(IQueryable\<Enrollment> query)
+> displays the result of the query
 ##### public static void Search()
+> used for searching in the enrollment table -- requires specification of a known value
 ##### public static Enrollment SearchToAdd()
+> used for searching while adding a new row into a different table
 ---------------------------------------------------
 ### File: Grade.cs
 #### Class: Grade
@@ -218,6 +241,7 @@ public DbSet\<Section> Sections { get; set; }\
 public DbSet\<Student> Students { get; set; }\
 
 ---------------------------------------------------
+
 ### File: DepartmentNames.cs
 #### Class: DepartmentNames
 > file used for data generation to make department names sound less awkward than the ones generated automatically

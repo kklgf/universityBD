@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\universityBD.csproj": {}
+    "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\universityBD.csproj": {
+    "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\universityBD.csproj",
+        "projectUniqueName": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj",
         "projectName": "universityBD",
-        "projectPath": "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\universityBD.csproj",
+        "projectPath": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\universityBD.csproj",
         "packagesPath": "C:\\Users\\Fiołko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fiołko\\source\\repos\\universityBD\\universityBD\\obj\\",
+        "outputPath": "C:\\Users\\Fiołko\\Source\\Repos\\universityBD\\universityBD\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
