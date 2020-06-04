@@ -44,7 +44,7 @@
 ## Entire code breakdown
 ### File: Program.cs
 #### Class: Program
-> class responsible for interaction with user  
+> class responsible for interaction with user\
 > catches the answers and switches appropriate functions depending on what user decides to do
 ##### static void Main(string[] args)
 > displaying main menu right after the start of an application
@@ -128,15 +128,15 @@ public Department Department { get; set; }\
 ##### public static Employee SearchToAdd()
 > used for seaching while adding a new row into a different table
 ##### public static void EmployeesCourses()
-> prepares the view of a courses being teached by the chosen employee
-> being called directly from the progam main function, first asks for the employee specification
-> when the chosen employee is found, database query is being prepared taking advantage of the sections table which connects employees with courses:
+> prepares the view of a courses being teached by the chosen employee\
+> being called directly from the progam main function, first asks for the employee specification\
+> when the chosen employee is found, database query is being prepared taking advantage of the sections table which connects employees with courses:\
 > from all the sections where the chosen employee teaches courseID value is selected and then with the use of this ID, course name is displayed (selection from the courses table with the known courseID)
 ---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
-> object class being mapped into the database table
-> enrollment is a connection between student and a section (existence of both are required to create a new enrollment)
+> object class being mapped into the database table\
+> enrollment is a connection between student and a section (existence of both are required to create a new enrollment)\
 > the class does not have a key itself, each object of this class is identified by a combination of a SectionID and a StudentID as foreign keys
 
 \[ForeignKey("Section")]\
@@ -146,8 +146,8 @@ public Section Section { get; set; }\
 public int StudentID { get; set; }\
 public Student Student { get; set; }\
 ##### public static Enrollment NewEnrollment()
-> creating a new enrollment: specifying the class properties by choice from already existing ones
-> 1: choice of a section: for a successful enrollment any free places at the section is required --- comparing section capacity with Section.CountStudentsOnSection(section)
+> creating a new enrollment: specifying the class properties by choice from already existing ones\
+> 1: choice of a section: for a successful enrollment any free places at the section is required --- comparing section capacity with Section.CountStudentsOnSection(section)\
 > 2. choice of a student: student can't have any other classes at the time of the new section (use of Student.HasClassesAtTheTime(studentID, section))
 ##### public static void SeeAll()
 > prepares the view of the whole enrollments table in the database
@@ -160,7 +160,7 @@ public Student Student { get; set; }\
 ---------------------------------------------------
 ### File: Grade.cs
 #### Class: Grade
-> object class being mapped into the database table
+> object class being mapped into the database table\
 > to create a new grade, the existence of any row in Students and Courses table is required
 
 \[ForeignKey("Course")]\
@@ -204,7 +204,7 @@ public int Capacity { get; set; }\
 ##### public static int CountStudentsOnSection(Section section)
 ##### public static void AttendanceList()
 ##### public static void FreePlaces()
-> displays the number of free places available for section
+> displays the number of free places available for section\
 > used while enrolling a student (freePlaces>0 is a required condition to make an enrollment)
 
 ---------------------------------------------------
