@@ -93,11 +93,11 @@ public String Name { get; set; }\
 ##### public static Department NewDepartment()
 > constructor: requires specification of the new department name
 ##### public static void SeeAll()
-> being call from program main function prepares the view of the whole departments table in the database
+> being called from program main function prepares the view of the whole departments table in the database
 ##### public static void print(IQueryable\<Department> query)
 > being called from SeeAll() or Search() function displays the result of the query
 ##### public static void Search()
-> responsible for searching in the department table --- requires specification of department name of value
+> responsible for searching in the department table --- requires specification of department name or ID value
 ##### public static Department SearchToAdd()
 > used for searching while adding a new row into a different table
 ---------------------------------------------------
@@ -128,6 +128,10 @@ public Department Department { get; set; }\
 ##### public static Employee SearchToAdd()
 > used for seaching while adding a new row into a different table
 ##### public static void EmployeesCourses()
+> prepares the view of a courses being teached by the chosen employee
+> being called directly from the progam main function, first asks for the employee specification
+> when the chosen employee is found, database query is being prepared taking advantage of the sections table which connects employees with courses:
+> from all the sections where the chosen employee teaches courseID value is selected and then with the use of this ID, course name is displayed (selection from the courses table with the known courseID)
 ---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
