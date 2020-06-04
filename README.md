@@ -10,7 +10,7 @@
 ##### Projekt:
   - Temat: Baza danych dla uczelni.
   - Serwer: wykorzystanie SQLite -- baza danych jest zintegrowana z aplikacją, która ma do niej bezpośredni dostęp (serwer nie jest potrzebny)
-  - Technologie: .Net i Entity Framework
+  - Technologie: .Net i Entity Framework (Code First Approach)
   - Link: https://github.com/kklgf/universityBD
 
 ## Current database schema
@@ -73,7 +73,7 @@ public Department Department { get; set; }\
 public String Name { get; set; }\
 public int ECTS { get; set; }\
 ##### public static Course NewCourse()
-> constructor: to construct a new course, the existence of any Department row is required and specification of other course properties
+> constructor: to construct a new course, the existence of any Department row is required and specification of other course class properties
 ##### public static void SeeAll()
 > being called from program main function prepares the view of the whole courses table in the database
 ##### public static void print(IQueryable\<Course> query)
@@ -131,7 +131,7 @@ public Department Department { get; set; }\
 > prepares the view of a courses being teached by the chosen employee\
 > being called directly from the progam main function, first asks for the employee specification\
 > when the chosen employee is found, database query is being prepared taking advantage of the sections table which connects employees with courses:\
-> from all the sections where the chosen employee teaches courseID value is selected and then with the use of this ID, course name is displayed (selection from the courses table with the known courseID)
+> from all the sections where the chosen employee teaches, courseID value is selected and then with the use of this ID, course name is displayed (selection from the courses table with the known courseID)
 ---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
@@ -173,9 +173,13 @@ public int Year { get; set; }\
 public int Semester { get; set; }\
 public int Score { get; set; }\
 ##### public static Grade NewGrade()
+> to create a new grade, the existence of any row in Students and Courses table is required, and specifiaction of other class properties
 ##### public static void SeeAll()
+> prepares the view of the whole grades table in the database
 ##### public static void print(IQueryable\<Grade> query)
+> displays the result of the query
 ##### public static void Search()
+> used for searching in the grades table -- requires specification of a known value
 ##### public static Grade SearchToAdd()
 ---------------------------------------------------
 ### File: Section.cs
@@ -196,12 +200,19 @@ public String StartTime { get; set; }\
 public int Length { get; set; }\
 public int Capacity { get; set; }\
 ##### public static Section NewSection()
+> specitication of the class poroperties and ensuring whether chosen employee and course exist
 ##### public static void SeeAll()
+> prepares the view of the whole sections table in the database
 ##### public static void print(IQueryable\<Section> query)
+> displays the result of the query
 ##### public static void Search()
+> used for seaching in the sections table --- requires specification of a known value
 ##### public static Section SearchToAdd()
+> used for searching while adding a row into a different table
 ##### public static int CountStudsOnTmpDB(Section section, UniversityContext context)
+> used for counting students on a section
 ##### public static int CountStudentsOnSection(Section section)
+> 
 ##### public static void AttendanceList()
 ##### public static void FreePlaces()
 > displays the number of free places available for section\

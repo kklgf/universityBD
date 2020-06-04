@@ -37,7 +37,7 @@ namespace universityBD
                             where sections.SectionID == SectionID
                             select sections;
                 foreach(var item in query)
-                { SectionAvailable = (item.Capacity > Section.CountStudentsOnSection(item)); }
+                { SectionAvailable = (item.Capacity > Section.CountStudentsOnSection(item, database)); }
                 if (SectionAvailable)
                 {
                     Console.WriteLine("Congratulations! This section is available!");

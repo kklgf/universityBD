@@ -463,7 +463,7 @@ namespace universityBD
             // Correction
             foreach (var section in sections)
             {
-                int freePlaces = section.Capacity - Section.CountStudsOnTmpDB(section, context);
+                int freePlaces = section.Capacity - Section.CountStudentsOnSection(section, context);
                 if (freePlaces < 0)
                 {
                     section.Capacity -= (freePlaces + freePlaces % 10);

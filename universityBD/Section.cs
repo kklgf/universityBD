@@ -83,7 +83,7 @@ namespace universityBD
                 "------------------------------------------------------------------");
             foreach (var item in query)
             {
-                int freePlaces = item.Capacity - CountStudentsOnSection(item);
+                int freePlaces = item.Capacity - CountStudentsOnSection(item, database);
                 var course = (Course)database.Courses.Where(e => e.CourseID == item.CourseID).FirstOrDefault();
                 var employee = (Employee)database.Employees.Where(e => e.EmployeeID == item.EmployeeID).FirstOrDefault();
                 Console.WriteLine(item.SectionID.ToString().PadRight(4) + "| " + course.Name.PadRight(50) + "| " + employee.Name.PadRight(14) + " " +
@@ -196,22 +196,10 @@ namespace universityBD
             return result;
         }
 
-        public static int CountStudsOnTmpDB(Section section, UniversityContext context)
+        public static int CountStudentsOnSection(Section section, UniversityContext context)
         {
             int result = 0;
             var foundEnrollments = from enrollments in context.Enrollments
-                                   where enrollments.SectionID == section.SectionID
-                                   select enrollments;
-            foreach (var enrollment in foundEnrollments) { result++; }
-            return result;
-        }
-
-        public static int CountStudentsOnSection(Section section)
-        {
-            UniversityContext database = new UniversityContext();
-            int result = 0;
-            
-            var foundEnrollments = from enrollments in database.Enrollments
                                    where enrollments.SectionID == section.SectionID
                                    select enrollments;
             foreach (var enrollment in foundEnrollments) { result++; }
@@ -257,7 +245,7 @@ namespace universityBD
                     break;
                 default:
                     var section = (Section)database.Sections.Where(e => e.SectionID == id).FirstOrDefault();
-                    int freePlaces = section.Capacity - CountStudentsOnSection(section);
+                    int freePlaces = section.Capacity - CountStudentsOnSection(section, database);
                     Console.WriteLine("There are " + freePlaces + " free places on this section.");
                     break;
             }
