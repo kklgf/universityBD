@@ -31,7 +31,7 @@
 - Random data generation for whole database [Patryk]
 
 ## Data corectness insurance
-- blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes
+- blocking student from having two classes at the same time: using the HasClassesAtTheTime(studentID, section) while enrolling for classes: something like a trigger imitation as they are not supported by Entity Framework
 - blocking the course overload (more students than capacity): while adding a new enrollment
 - ensuring there is an existing row (in another table) while adding an attribute -- you need to choose from existing
 
@@ -60,6 +60,7 @@
 > data generation using Faker
 ##### static void WrongAction()
 > informing user about chosing incorrect value while deciding about actions
+
 ---------------------------------------------------
 ### File: Course.cs
 #### Class: Course
@@ -100,6 +101,7 @@ public String Name { get; set; }\
 > responsible for searching in the department table --- requires specification of department name or ID value
 ##### public static Department SearchToAdd()
 > used for searching while adding a new row into a different table
+
 ---------------------------------------------------
 ### File: Employee.cs
 #### Class: Employee
@@ -132,6 +134,7 @@ public Department Department { get; set; }\
 > being called directly from the progam main function, first asks for the employee specification\
 > when the chosen employee is found, database query is being prepared taking advantage of the sections table which connects employees with courses:\
 > from all the sections where the chosen employee teaches, courseID value is selected and then with the use of this ID, course name is displayed (selection from the courses table with the known courseID)
+
 ---------------------------------------------------
 ### File: Enrollment.cs
 #### Class: Enrollment
@@ -157,6 +160,7 @@ public Student Student { get; set; }\
 > used for searching in the enrollment table -- requires specification of a known value
 ##### public static Enrollment SearchToAdd()
 > used for searching while adding a new row into a different table
+
 ---------------------------------------------------
 ### File: Grade.cs
 #### Class: Grade
@@ -200,7 +204,9 @@ public String StartTime { get; set; }\
 public int Length { get; set; }\
 public int Capacity { get; set; }\
 ##### public static Section NewSection()
-> specitication of the class poroperties and ensuring whether chosen employee and course exist
+> specification of the class poroperties and ensuring whether chosen employee and course exist\
+> moreover, the chosen professor must be an employee in the department which organizes the course, which means that employee.DepartmentID must be the same as the course.DepartmentID: otherwise
+the creation of such a section is not possible
 ##### public static void SeeAll()
 > prepares the view of the whole sections table in the database
 ##### public static void print(IQueryable\<Section> query)
@@ -209,14 +215,15 @@ public int Capacity { get; set; }\
 > used for seaching in the sections table --- requires specification of a known value
 ##### public static Section SearchToAdd()
 > used for searching while adding a row into a different table
-##### public static int CountStudsOnTmpDB(Section section, UniversityContext context)
-> used for counting students on a section
-##### public static int CountStudentsOnSection(Section section)
-> 
+##### public static int CountStudentsOnSection(Section section, UniversityContext context)
+> counting students already enrolled for a particular section (used to prevent section overload and give an information about free places on a section)
 ##### public static void AttendanceList()
+> prepares a list of students attending a particular section: uses the students table and the enrollments table as a connection:\
+> first the section is specified, then using the SectionID, all matching enrollments are found. Enrollments table contains information about studentID, which is then used for selecting students' names
+and surnames from the students table
 ##### public static void FreePlaces()
 > displays the number of free places available for section\
-> used while enrolling a student (freePlaces>0 is a required condition to make an enrollment)
+> used while enrolling a student (freePlaces>0 is a required condition to make an successful enrollment)
 
 ---------------------------------------------------
 ### File: Student.cs
@@ -233,15 +240,29 @@ public String Phone { get; set; }\
 public String Email { get; set; }\
 public int GraduationYear { get; set; }
 ##### public static Student NewStudent()
+> constructor: creating a new student: requires the specification of all the above class properties (studentID is generated automatically, no need of specifying it)
 ##### public static void Search()
+> function used for searching in the database: requires specification of a known value
 ##### public static void print(IQueryable\<Student> query)
+> displays the result of the query
 ##### public static void SeeAll()
+> prepares the view of the whole table
 ##### public static Student SearchToAdd()
+> function being called to seach for students while adding a new row into a different table
 ##### public static bool HasClassesAtTheTime(int studentID, Section section)
+> function used while enrolling for classes (adding a new row into the enrollment table)
 > gives the answer whether student can enroll for a Section section or has another classes at the time: then enrollment is not available
 ##### public static void StudentsGrades()
 > resonsible for creating a view with grades of a student
 ##### public static void StudentsECTS()
+> responsible for calculating the ETCS points of a particular student\
+> first user needs to specify the student (by inserting it's ID) and the semester they are interested in\
+> ECTS points per course are stored in the courses table\
+> for a chosen student, all grades from a matching semester are being selected\
+> if a score in the Grades table is higher than 2 (which means that a student managed to pass the course), using a reference of a CourseID in the Grades table, ECTS points value from the courses table is selected
+and added to the result\
+> at the end, the result is displayed
+
 ---------------------------------------------------
 ### File: UniversityContext.cs
 #### Class: UniversityContext : DbContext
